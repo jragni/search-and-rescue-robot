@@ -38,3 +38,7 @@ RUN echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc
 ################################
 ## ADD ANY CUSTOM SETUP BELOW ##
 ################################
+
+# source the colcon workspace
+RUN echo "source /home/ubuntu/colcon_ws/install/setup.bash" >> ~/.bashrc
+RUN source ~/.bashrc
