@@ -60,8 +60,8 @@ sudo apt install ros-humble-nav2-bringup
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/martian-rescue-robot.git
-cd martian-rescue-robot
+git clone --recurse-submodules https://github.com/jragni/search-and-rescue-robot.git
+cd search-and-rescue-robot
 
 # Build the ROS2 workspace
 colcon build
