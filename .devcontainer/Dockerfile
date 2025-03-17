@@ -42,3 +42,10 @@ RUN echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc
 # source the colcon workspace
 RUN echo "source /home/ubuntu/colcon_ws/install/setup.bash" >> ~/.bashrc
 RUN source ~/.bashrc
+
+# install imu tools
+RUN sudo apt-get update \
+    && sudo apt-get install -y ros-humble-imu-tools \
+    && sudo apt-get clean \
+    && sudo rm -rf /var/lib/apt/lists/*
+

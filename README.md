@@ -150,7 +150,7 @@ Contributions are welcome! Please feel free to submit issues or pull requests.
 - [ROS2 Documentation](https://docs.ros.org/en/humble/index.html)
 - [Navigation2](https://navigation.ros.org/)
 - [SLAM Toolbox](https://github.com/SteveMacenski/slam_toolbox)
-- [YOLOv8 Documentation](https://docs.ultralytics.com/)
+- [YOLOv11 Documentation](https://docs.ultralytics.com/)
 
 ## 📧 Contact
 
