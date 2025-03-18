@@ -29,6 +29,12 @@ RUN sudo apt install -y git
 
 RUN sudo apt install -y vim
 
+# install imu tools
+RUN sudo apt-get update \
+    && sudo apt-get install -y ros-humble-imu-tools \
+    && sudo apt-get clean \
+    && sudo rm -rf /var/lib/apt/lists/*
+
 # Rosdep update
 RUN rosdep update
 
@@ -38,14 +44,3 @@ RUN echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc
 ################################
 ## ADD ANY CUSTOM SETUP BELOW ##
 ################################
-
-# source the colcon workspace
-RUN echo "source /home/ubuntu/colcon_ws/install/setup.bash" >> ~/.bashrc
-RUN source ~/.bashrc
-
-# install imu tools
-RUN sudo apt-get update \
-    && sudo apt-get install -y ros-humble-imu-tools \
-    && sudo apt-get clean \
-    && sudo rm -rf /var/lib/apt/lists/*
-
