@@ -7,6 +7,7 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(ament_cmake_python REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclpy REQUIRED)
 find_package(geometry_msgs REQUIRED)
@@ -28,6 +29,12 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
+include_directories(include)
+
+# install py modules
+ament_python_install_packages(${PROJECT_NAME})
+
+# install python executables
 install (PROGRAMS
   DESTINATION lib/${PROJECT_NAME}
 )
