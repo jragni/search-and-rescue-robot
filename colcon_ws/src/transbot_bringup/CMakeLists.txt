@@ -14,8 +14,7 @@ find_package(geometry_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(transbot_msgs REQUIRED)
 find_package(tf2 REQUIRED)
-find_package(tf2_ros REQUIRED)
-find_package(tf2_ros_py REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -31,8 +30,17 @@ endif()
 
 include_directories(include)
 
+add_executable(base_node src/base_node.cpp)
+ament_target_dependencies(base_node rclcpp nav_msgs geometry_msgs tf2 tf2_geometry_msgs)
+
+install(TARGETS
+  base_node
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 # install py modules
-ament_python_install_packages(${PROJECT_NAME})
+ament_python_install_package(${PROJECT_NAME})
+
 
 # install python executables
 install (PROGRAMS

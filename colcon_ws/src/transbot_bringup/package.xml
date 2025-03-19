@@ -3,13 +3,12 @@
 <package format="3">
   <name>transbot_bringup</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
+  <description>ROS2 package for transbot bringup</description>
   <maintainer email="jhensenrayagni@gmail.com">ubuntu</maintainer>
-  <license>TODO: License declaration</license>
+  <license>BSD</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
   <buildtool_depend>ament_cmake_python</buildtool_depend>
-
 
   <depend>rclcpp</depend>
   <depend>rclpy</depend>
@@ -17,8 +16,9 @@
   <depend>nav_msgs</depend>
   <depend>transbot_msgs</depend>
   <depend>tf2</depend>
-  <depend>tf2_ros</depend>
-  <depend>tf2_ros_py</depend>
+
+  <build_depend>tf2_geometry_msgs</build_depend>
+  <exec_depend>tf2_geometry_msgs</exec_depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
