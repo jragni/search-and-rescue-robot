@@ -7,7 +7,7 @@ ARG USER_GID=$USER_UID
 
 RUN if ! id -u $USER_UID >/dev/null 2>&1; then \
         groupadd --gid $USER_GID $USERNAME && \
-        useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME; \
+        useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME; \ 
     fi
 #Add sudo support for the non-root user
 
@@ -42,12 +42,24 @@ RUN sudo apt-get update \
     && sudo apt-get clean \
     && sudo rm -rf /var/lib/apt/lists/*
 
+# install orbbecSDK related dependencies (RGB-D Camera)
+RUN sudo apt update && sudo apt upgrade && \ 
+sudo apt install libgflags-dev nlohmann-json3-dev  \
+ros-$ROS_DISTRO-image-transport  ros-${ROS_DISTRO}-image-transport-plugins ros-${ROS_DISTRO}-compressed-image-transport \
+ros-$ROS_DISTRO-image-publisher ros-$ROS_DISTRO-camera-info-manager \
+ros-$ROS_DISTRO-diagnostic-updater ros-$ROS_DISTRO-diagnostic-msgs ros-$ROS_DISTRO-statistics-msgs \
+ros-$ROS_DISTRO-backward-ros libdw-dev -y
 
 # Rosdep update
 RUN rosdep update
 
 # Source the ROS setup file
 RUN echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc
+
+
+WORKDIR /home/ubuntu
+
+
 
 ################################
 ## ADD ANY CUSTOM SETUP BELOW ##
