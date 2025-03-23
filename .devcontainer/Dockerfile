@@ -30,6 +30,10 @@ RUN sudo apt install -y git
 
 RUN sudo apt install -y vim
 
+RUN sudo apt install -y python3-pip && \
+    pip3 install pyserial
+
+
 # install lsusb
 RUN sudo apt-get update \
     && sudo apt-get install -y usbutils \

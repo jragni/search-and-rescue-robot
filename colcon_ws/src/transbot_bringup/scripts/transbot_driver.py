@@ -84,6 +84,9 @@ class TransbotDriver(Node):
             10
         )
 
+        self.bot.create_receive_threading()
+        self.bot.set_uart_servo_angle(9,90)
+
         self.get_logger().info('Starting driver node')
 
     
