@@ -4,3 +4,6 @@
 [submodule "colcon_ws/src/imu_calib"]
 	path = colcon_ws/src/imu_calib
 	url = https://github.com/jragni/imu_calib.git
+[submodule "colcon_ws/src/OrbbecSDK_ROS2"]
+	path = colcon_ws/src/OrbbecSDK_ROS2
+	url = https://github.com/orbbec/OrbbecSDK_ROS2.git

@@ -2,6 +2,7 @@
 */build/
 */install/
 */log/
+*/Log/
 
 # Colcon build artifacts
 */.colcon_cd_root
