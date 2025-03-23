@@ -96,19 +96,24 @@ class TransbotDriver(Node):
             if joint.run_time != 0:
                 self.bot.set_uart_servo_angle(joint.id, joint.angle, joint.run_time)
     
-    # def cmd_vel_callback(self, msg):
+    def cmd_vel_callback(self, msg):
+        print('TODO vel callback')
 
-    # def pwm_servo_callback(self, msg):
-    #     """Controls depth camera servo pan."""
+    def pwm_servo_callback(self, msg):
+        """Controls depth camera servo pan."""
+        print('TODO RGBD callback')
 
-    # def adjust_callback(self, msg):
-    #     """Dictates whether turning is imu assisted."""
+    def adjust_callback(self, msg):
+        """Dictates whether turning is imu assisted."""
+        print("TODO adjust")
 
-    # def voltage_callback(self):
-    #     """Get batter voltage."""
+    def voltage_callback(self):
+        """Get batter voltage."""
+        print("TODO get battery ")
     
-    # def pub_data(self):
-    #     """Get data from Transbot API and publish to topic."""
+    def pub_data(self):
+        """Get data from Transbot API and publish to topic."""
+        print('TODO pubdata')
 
 
 def main(args=None):
