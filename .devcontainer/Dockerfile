@@ -22,6 +22,9 @@ USER $USERNAME
 # Add user to video group to allow access to webcam
 RUN sudo usermod --append --groups video $USERNAME
 
+# Add serial permissions
+RUN sudo usermod -aG dialout $USERNAME
+
 # Update all packages
 RUN sudo apt update && sudo apt upgrade -y
 
