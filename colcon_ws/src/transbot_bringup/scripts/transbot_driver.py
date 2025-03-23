@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
+from math import pi
 
 import rclpy
+from rclpy.executors import MultiThreadedExecutor
 from rclpy.node import Node
-from math import pi
-from time import sleep
+from rclpy.callback_groups import ReentrantCallbackGroup
 
 from transbot_msgs.msg import *
 from transbot_msgs.srv import *
@@ -12,7 +13,7 @@ from geometry_msgs.msg import Twist
 from sensor_msgs.msg import Imu
 from std_msgs.msg import Int32
 
-sys.path.append("")
+from transbot_bringup.Transbot_Lib import Transbot
 
 class TransbotDriver(Node):
     def __init__(self):
@@ -26,6 +27,9 @@ class TransbotDriver(Node):
         # servo angle for depth camera
         self.min_servo_angle = 60
         self.max_servo_angle = 120
+
+        # Start connection with extension board
+        self.bot = Transbot(com="/dev/ttyAMA0")
 
         # Subscribers
         self.cmd_vel_sub_ = self.create_subscription(
@@ -67,31 +71,29 @@ class TransbotDriver(Node):
             self.voltage_callback,
             10
         )
-        self.voltage_pub_
 
-        self.velocity_pub_ = create_publisher(
+        self.velocity_pub_ = self.create_publisher(
             Twist,
             '/transbot/get_vel',
             10
         )
-        self.velocity_pub_
 
-        self.imu_pub_ = create_publisher(
+        self.imu_pub_ = self.create_publisher(
             Imu,
             '/transbot/get_imu',
             10
         )
 
-        
         self.get_logger().info('Starting driver node')
-
 
     
     def arm_callback(self, msg):
-        #TODO
+        """Sets joint angle of the arms"""
+        for joint in msg.joint:
+            if joint.run_time != 0:
+                self.bot.set_uart_servo_angle(joint.id, joint.angle, joint.run_time)
     
     def cmd_vel_callback(self, msg):
-        # TODO
 
     def pwm_servo_callback(self, msg):
         """Controls depth camera servo pan."""
@@ -102,12 +104,22 @@ class TransbotDriver(Node):
     def voltage_callback(self):
         """Get batter voltage."""
     
+    def pub_data(self):
+        """Get data from Transbot API and publish to topic."""
+
 
 def main(args=None):
     rclpy.init(args=args)
     node = TransbotDriver()
-    rclpy.spin(node)
-    rclpy.shutdown()
+
+    executor = MultiThreadedExecutor()
+    executor.add_node(node)
+
+    try:
+        executor.spin()
+    finally:
+        node.destroy_node()
+        rclpy.shutdown()
 
 if __name__ == "__main__":
     main()
