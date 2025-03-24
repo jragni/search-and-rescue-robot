@@ -71,10 +71,10 @@ class TransbotDriver(Node):
         self.adjust_sub_
 
         # Publishers
-        self.voltage_pub_ = self.create_publisher(
-            Voltage,
+        self.battery_pub_ = self.create_publisher(
+            Battery,
             'voltage',
-            self.voltage_callback,
+            self.battery_callback,
             10
         )
 
@@ -192,7 +192,7 @@ class TransbotDriver(Node):
             voltage = self.bot.get_battery_voltage()
             battery_msg = Battery()
             battery_msg.voltage = voltage
-            self.voltage_pub_.publish(battery_msg)
+            self.battery_pub_.publish(battery_msg)
         except Exception as e:
             self.get_logger().error(f"Error getting battery data: {e}")
     
