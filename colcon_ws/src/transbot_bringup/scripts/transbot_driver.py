@@ -21,7 +21,7 @@ class TransbotDriver(Node):
         ## Limits
         # velocity
         self.linear_max = 0.4
-        self.linear_min = 0.4
+        self.linear_min = 0.0
         self.angular_max = 2.0
         self.angular_min = 0.0
         # servo angle for depth camera
@@ -88,29 +88,58 @@ class TransbotDriver(Node):
         self.bot.set_uart_servo_angle(9,90)
 
         self.get_logger().info('Starting driver node')
-
     
+
     def arm_callback(self, msg):
         """Sets joint angle of the arms"""
         for joint in msg.joint:
             if joint.run_time != 0:
                 self.bot.set_uart_servo_angle(joint.id, joint.angle, joint.run_time)
-    
+
+
     def cmd_vel_callback(self, msg):
-        print('TODO vel callback')
+        """controls motion of tank."""
+
+        linear_velocity = msg.linear.x
+        angular_velocity = msg.angular.z
+
+        if linear_velocity > self.linear_max:
+            linear_velocity = self.linear_max
+        elif linear_velocity < -self.linear_max:
+            linear_velocity = -self.linear_max
+        elif -self.linear_min < linear_velocity < 0:
+            linear_velocity = -self.linear_min
+        elif 0 < linear_velocity < self.linear_min:
+            linear_velocity = self.linear_min
+
+        if angular_velocity > self.angular_max:
+            angular_velocity = self.angular_max
+        elif angular_velocity < -self.angular_max:
+            angular_velocity = -self.angular_max
+        elif -self.angular_min < angular_velocity < 0:
+            angular_velocity = -self.angular_min
+        elif 0 < angular_velocity < self.angular_min:
+            angular_velocity = self.angular_min
+
+        self.get_logger().info(f"cmd_vel: {linear_velocity}, cmd_ang: {angular_velocity}")
+        self.bot.set_car_motion(0.8*linear_velocity, 0.5*angular_velocity)
+
 
     def pwm_servo_callback(self, msg):
         """Controls depth camera servo pan."""
-        print('TODO RGBD callback')
+
+
 
     def adjust_callback(self, msg):
         """Dictates whether turning is imu assisted."""
         print("TODO adjust")
 
+
     def voltage_callback(self):
         """Get batter voltage."""
         print("TODO get battery ")
     
+
     def pub_data(self):
         """Get data from Transbot API and publish to topic."""
         print('TODO pubdata')
