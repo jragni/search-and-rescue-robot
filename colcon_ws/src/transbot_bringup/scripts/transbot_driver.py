@@ -74,7 +74,6 @@ class TransbotDriver(Node):
         self.battery_pub_ = self.create_publisher(
             Battery,
             'voltage',
-            self.battery_callback,
             10
         )
 
