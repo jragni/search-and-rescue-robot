@@ -23,7 +23,7 @@ USER $USERNAME
 RUN sudo usermod --append --groups video $USERNAME
 
 # Add serial permissions
-RUN sudo usermod -aG dialout $USERNAME
+RUN sudo usermod --append --groups dialout $USERNAME
 
 # Update all packages
 RUN sudo apt update && sudo apt upgrade -y
