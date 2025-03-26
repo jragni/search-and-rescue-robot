@@ -14,7 +14,7 @@ from sensor_msgs.msg import Imu
 from std_msgs.msg import Int32
 
 from transbot_bringup.Transbot_Lib import Transbot
-from helpers import is_arm_within_limits
+from transbot_bringup.helpers import is_arm_within_limits
 
 class TransbotDriver(Node):
     def __init__(self):
