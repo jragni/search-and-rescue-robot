@@ -14,6 +14,7 @@ from sensor_msgs.msg import Imu
 from std_msgs.msg import Int32
 
 from transbot_bringup.Transbot_Lib import Transbot
+from helpers import is_arm_within_limits
 
 class TransbotDriver(Node):
     def __init__(self):
@@ -27,6 +28,9 @@ class TransbotDriver(Node):
         # servo angle for depth camera
         self.min_servo_angle = 60
         self.max_servo_angle = 120
+        # Arm limits to prevent self collision
+        self.arm_x_min = -0.1  # [m]
+        self.arm_y_min = -0.04  # [m]
 
         # Start connection with extension board
         self.bot = Transbot(com="/dev/ttyAMA0")
@@ -101,9 +105,15 @@ class TransbotDriver(Node):
 
     def arm_callback(self, msg):
         """Sets joint angle of the arms"""
-        for joint in msg.joint:
-            if joint.run_time != 0:
-                self.bot.set_uart_servo_angle(joint.id, joint.angle, joint.run_time)
+        if is_arm_within_limits(
+            [msg.joint[0], msg.joint[1]],
+            self.arm_x_min, self.arm_y_min
+        ):
+            for joint in msg.joint:
+                if joint.run_time != 0:
+                    self.bot.set_uart_servo_angle(joint.id, joint.angle, joint.run_time)
+        else:
+            self.get_logger.warn(f"angles received will cause collision, ignoring...")
 
 
     def cmd_vel_callback(self, msg):
@@ -199,6 +209,7 @@ class TransbotDriver(Node):
         stop_msg = Twist()
         self.velocity_pub_.publish(stop_msg)
 
+
 def main(args=None):
     rclpy.init(args=args)
     node = TransbotDriver()
@@ -213,6 +224,7 @@ def main(args=None):
         node.get_logger().info("Stopping robot...")
 
     finally:
+        node.stop_robot()
         node.get_logger().info("Shutting down!")
         node.destroy_node()
         rclpy.shutdown()
