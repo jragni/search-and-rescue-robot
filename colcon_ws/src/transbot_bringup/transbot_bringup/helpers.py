@@ -3,7 +3,7 @@
 from math import cos, sin, pi
 
 def is_arm_within_limits(
-    angles: list[float],
+    angles: list[Union[ float, int ]],
     x_min: float,
     y_min: float,
 ) -> bool:
@@ -13,9 +13,9 @@ def is_arm_within_limits(
     y = L1 * sin(t1) + L2 * sin(t1 + t2) >= y_min
     """
     # Horizontal is at 90
-    t1 = (angles[0] - 90) * pi / 180.0
+    t1 = (angles[0] - 90.0) * pi / 180.0
     # Horizontal is at 180
-    t2 = (angles[1] - 180) * pi / 180.0
+    t2 = (angles[1] - 180.0) * pi / 180.0
 
     # Measured links
     L1 = 0.08  # [cm]

@@ -90,7 +90,7 @@ search-and-rescue-robot/
 │   │   ├── msg/
 │   │   ├── srv/
 │   │   ├── action/
-│   ├── transbot_robot/
+│   ├── transbot_bringup/
 │   │   ├── launch/
 │   │   ├── config/
 │   │   ├── src/
@@ -154,7 +154,7 @@ Contributions are welcome! Please feel free to submit issues or pull requests.
 
 ## 📧 Contact
 
-Your Name - [jhensenrayagni@gmail.com](mailto:jhensenrayagni@gmail.com)
+Jhensen Ray Agni - [jhensenrayagni@gmail.com](mailto:jhensenrayagni@gmail.com)
 
 Project Link: [https://github.com/jragni/search-and-rescue-robot](https://github.com/jhensenrayagni/search-and-rescue-robot)
 
