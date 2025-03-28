@@ -105,7 +105,7 @@ class TransbotDriver(Node):
 
     def arm_callback(self, msg):
         """Sets joint angle of the arms"""
-        angles = [joint.angle for joint in msg]
+        angles = [joint.angle for joint in msg.joint]
         if is_arm_within_limits(
             angles,
             self.arm_x_min, self.arm_y_min
