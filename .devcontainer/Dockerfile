@@ -7,7 +7,7 @@ ARG USER_GID=$USER_UID
 
 RUN if ! id -u $USER_UID >/dev/null 2>&1; then \
         groupadd --gid $USER_GID $USERNAME && \
-        useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME; \ 
+        useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME; \
     fi
 #Add sudo support for the non-root user
 
@@ -32,6 +32,7 @@ RUN sudo apt update && sudo apt upgrade -y
 RUN sudo apt install -y git
 
 RUN sudo apt install -y vim
+RUN sudo apt install -y udev
 
 RUN sudo apt install -y python3-pip && \
     pip3 install pyserial
@@ -55,7 +56,11 @@ sudo apt install libgflags-dev nlohmann-json3-dev  \
 ros-$ROS_DISTRO-image-transport  ros-${ROS_DISTRO}-image-transport-plugins ros-${ROS_DISTRO}-compressed-image-transport \
 ros-$ROS_DISTRO-image-publisher ros-$ROS_DISTRO-camera-info-manager \
 ros-$ROS_DISTRO-diagnostic-updater ros-$ROS_DISTRO-diagnostic-msgs ros-$ROS_DISTRO-statistics-msgs \
-ros-$ROS_DISTRO-backward-ros libdw-dev -y
+ros-$ROS_DISTRO-backward-ros libdw-dev \
+ros-$ROS_DISTRO-navigation2 \
+ros-$ROS_DISTRO-nav2-bringup \
+ros-$ROS_DISTRO-turtlebot3* -y &&\
+source /opt/ros/<distro>/setup.bash
 
 # Rosdep update
 RUN rosdep update
