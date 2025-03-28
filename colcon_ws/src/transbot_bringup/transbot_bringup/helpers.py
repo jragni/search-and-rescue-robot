@@ -3,7 +3,7 @@
 from math import cos, sin, pi
 
 def is_arm_within_limits(
-    angles: list[Union[ float, int ]],
+    angles: list[float | int],
     x_min: float,
     y_min: float,
 ) -> bool:
