@@ -21,13 +21,13 @@ class TransbotDriver(Node):
         super().__init__('driver_node')
         ## Limits
         # velocity
-        self.linear_max = 0.4
-        self.linear_min = 0.0
-        self.angular_max = 2.0
-        self.angular_min = 0.0
+        self.linear_max = 0.4  # [m]
+        self.linear_min = 0.0  # [m]
+        self.angular_max = 2.0  # [rad]
+        self.angular_min = 0.0  # [rad]
         # servo angle for depth camera
-        self.min_servo_angle = 60
-        self.max_servo_angle = 120
+        self.min_servo_angle = 60  # [deg]
+        self.max_servo_angle = 120  # [deg]
         # Arm limits to prevent self collision
         self.arm_x_min = -0.1  # [m]
         self.arm_y_min = -0.04  # [m]
@@ -225,7 +225,6 @@ def main(args=None):
         node.get_logger().info("Stopping robot...")
 
     finally:
-        node.stop_robot()
         node.get_logger().info("Shutting down!")
         node.destroy_node()
         rclpy.shutdown()
