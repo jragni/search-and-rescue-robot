@@ -50,17 +50,20 @@ RUN sudo apt-get update \
     && sudo apt-get clean \
     && sudo rm -rf /var/lib/apt/lists/*
 
-# install orbbecSDK related dependencies (RGB-D Camera)
-RUN sudo apt update && sudo apt upgrade && \ 
+# install orbbecSDK related dependencies (RGB-D Camera) and ros navigation package
+RUN sudo apt update && sudo apt upgrade -y && \ 
 sudo apt install libgflags-dev nlohmann-json3-dev  \
-ros-$ROS_DISTRO-image-transport  ros-${ROS_DISTRO}-image-transport-plugins ros-${ROS_DISTRO}-compressed-image-transport \
+ros-$ROS_DISTRO-image-transport \
+ros-${ROS_DISTRO}-image-transport-plugins \
+ros-${ROS_DISTRO}-compressed-image-transport \
 ros-$ROS_DISTRO-image-publisher ros-$ROS_DISTRO-camera-info-manager \
-ros-$ROS_DISTRO-diagnostic-updater ros-$ROS_DISTRO-diagnostic-msgs ros-$ROS_DISTRO-statistics-msgs \
+ros-$ROS_DISTRO-diagnostic-updater \
+ros-$ROS_DISTRO-diagnostic-msgs \
+ros-$ROS_DISTRO-statistics-msgs \
 ros-$ROS_DISTRO-backward-ros libdw-dev \
 ros-$ROS_DISTRO-navigation2 \
 ros-$ROS_DISTRO-nav2-bringup \
-ros-$ROS_DISTRO-turtlebot3* -y &&\
-source /opt/ros/<distro>/setup.bash
+ros-$ROS_DISTRO-turtlebot3* -y
 
 # Rosdep update
 RUN rosdep update
