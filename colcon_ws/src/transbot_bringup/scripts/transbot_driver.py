@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from math import pi
+import signal
 
 import rclpy
 from rclpy.node import Node
@@ -217,17 +218,17 @@ def main(args=None):
 
     executor = MultiThreadedExecutor()
     executor.add_node(node)
-
-    try:
-        executor.spin()
-    except KeyboardInterrupt:
-        node.stop_robot()
+    
+    def signal_handler(signal, frame):
         node.get_logger().info("Stopping robot...")
-
-    finally:
+        node.stop_robot()
         node.get_logger().info("Shutting down!")
         node.destroy_node()
         rclpy.shutdown()
+
+    executor.spin()
+    signal.signal(signal.SIGINT, signal_handler)
+
 
 if __name__ == "__main__":
     main()
