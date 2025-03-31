@@ -63,6 +63,7 @@ ros-$ROS_DISTRO-statistics-msgs \
 ros-$ROS_DISTRO-backward-ros libdw-dev \
 ros-$ROS_DISTRO-navigation2 \
 ros-$ROS_DISTRO-nav2-bringup \
+ros-$ROS_DISTRO-twist-mux \
 ros-$ROS_DISTRO-turtlebot3* -y
 
 # Rosdep update
@@ -74,11 +75,8 @@ RUN echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc
 
 WORKDIR /home/ubuntu
 
-
-
 ################################
 ## ADD ANY CUSTOM SETUP BELOW ##
 ################################
-
 
 # TODO add build for colcon_ws and source it
