@@ -64,6 +64,7 @@ ros-$ROS_DISTRO-backward-ros libdw-dev \
 ros-$ROS_DISTRO-navigation2 \
 ros-$ROS_DISTRO-nav2-bringup \
 ros-$ROS_DISTRO-twist-mux \
+ros-$ROS_DISTRO-xacro \
 ros-$ROS_DISTRO-turtlebot3* -y
 
 # Rosdep update
