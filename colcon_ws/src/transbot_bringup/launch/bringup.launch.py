@@ -41,7 +41,7 @@ def generate_launch_description():
     )
 
     # joint state publisher
-    joint_state_node = Node(
+    joint_state_publisher_node = Node(
         package='joint_state_publisher',
         executable='joint_state_publisher',
         name='joint_state_publisher'
@@ -104,5 +104,5 @@ def generate_launch_description():
         apply_calib_node,
         imu_filter_node,
         static_transform_publisher_node,
-        joint_state_publisher,
+        joint_state_publisher_node,
     ])
