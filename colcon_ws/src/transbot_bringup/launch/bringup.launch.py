@@ -58,13 +58,13 @@ def generate_launch_description():
 
     # imu filter node
     imu_filter_params = {
+        'constant_dt': 0.0,
         'fixed_frame': 'base_link',
         'use_mag': False,
         'publish_tf': False,
         'use_magnetic_field_msg': False,
         'world_frame': 'enu',
         'orientation_stddev': 0.05,
-        'angular_scale': 1.08
     }
 
     imu_filter_node = Node(
@@ -94,8 +94,8 @@ def generate_launch_description():
     return LaunchDescription([
         declare_use_sim_time,
         bringup_node,
+        base_node,
         apply_calib_node,
         imu_filter_node,
         static_transform_publisher_node,
-        base_node
     ])
