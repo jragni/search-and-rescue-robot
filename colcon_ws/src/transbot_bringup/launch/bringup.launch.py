@@ -52,7 +52,6 @@ def generate_launch_description():
     apply_calib_params = {
         "calib_file": os.path.join(bringup_pkg_path, 'config', 'imu_calib.yaml'),
         "calibrate_gyros": True,
-        "is_multi": False,
     }
 
     apply_calib_node = Node(
