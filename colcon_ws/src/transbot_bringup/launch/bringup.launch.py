@@ -86,7 +86,17 @@ def generate_launch_description():
         package='tf2_ros',
         executable='static_transform_publisher',
         name='base_link_to_imu_link',
-        arguments=['0.0', '0', '0.02', '0', '0', '0', '/base_link', '/imu_link', '100']
+        arguments=[
+            '--x', '0.0',
+            '--y', '0.0',
+            '--z', '0.2',
+            '--qx', '0',
+            '--qy', '0',
+            '--qw', '1',
+            '--frame-id', 'base_link',
+            '--child-frame-id', 'imu_link',
+        ]
+        #arguments=['0.0', '0', '0.02', '0', '0', '0', '1', '/base_link', '/imu_link']
     )
 
     # base node
