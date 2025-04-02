@@ -17,7 +17,6 @@ def generate_launch_description():
 
     params = {
         'robot_description': robot_description_config.toxml(),
-
         'use_sim_time': use_sim_time
     }
 
