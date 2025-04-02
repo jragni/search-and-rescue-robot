@@ -28,7 +28,6 @@ def generate_launch_description():
     xacro_file = os.path.join(description_pkg_path, 'urdf', 'transbot_astra.urdf.xacro')
     robot_description_config = xacro.process_file(xacro_file)
 
-
     robot_state_params = {
         'robot_description': robot_description_config.toxml(),
         'use_sim_time': use_sim_time
@@ -39,6 +38,13 @@ def generate_launch_description():
         executable='robot_state_publisher',
         output='screen',
         parameters=[robot_state_params]
+    )
+
+    # joint state publisher
+    joint_state_node = Node(
+        package='joint_state_publisher',
+        executable='joint_state_publisher',
+        name='joint_state_publisher'
     )
 
     # imu calib node
@@ -98,4 +104,5 @@ def generate_launch_description():
         apply_calib_node,
         imu_filter_node,
         static_transform_publisher_node,
+        joint_state_publisher,
     ])
