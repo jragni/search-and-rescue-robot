@@ -12,7 +12,7 @@ from transbot_msgs.srv import *
 
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import Imu
-from std_msgs.msg import Int32
+from std_msgs.msg import Header, Int32
 
 from transbot_bringup.Transbot_Lib import Transbot
 from transbot_bringup.helpers import is_arm_within_limits
@@ -179,6 +179,8 @@ class TransbotDriver(Node):
             imu_msg.angular_velocity.x = gx
             imu_msg.angular_velocity.y = gy
             imu_msg.angular_velocity.z = gz
+            imu_msg.header.stamp = self.get_clock().now()
+            imu_msg.header.frame_id = 'imu_link'
             self.imu_pub_.publish(imu_msg)
 
         except Exception as e:
