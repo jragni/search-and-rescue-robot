@@ -99,7 +99,10 @@ class TransbotDriver(Node):
         self.create_timer(0.1, self.battery_callback, self.reentrant_group_1_)
 
         self.bot.create_receive_threading()
+        # set arm to default config
+        self.bot.set_uart_servo_angle(7,225)
         self.bot.set_uart_servo_angle(9,90)
+        self.bot.set_uart_servo_angle(9,30)
 
         self.get_logger().info('Starting driver node')
 
@@ -180,7 +183,7 @@ class TransbotDriver(Node):
             imu_msg.angular_velocity.y = gy
             imu_msg.angular_velocity.z = gz
             imu_msg.header = Header()
-            img_msg.header.timestamp = self.get_clock().now()
+            imu_msg.header.timestamp = self.get_clock().now()
             imu_msg.header.frame_id = "imu_link"
             self.imu_pub_.publish(imu_msg)
 
