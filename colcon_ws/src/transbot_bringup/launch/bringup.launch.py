@@ -64,6 +64,7 @@ def generate_launch_description():
 
     # imu filter node
     imu_filter_params = {
+        'gain': 0.05,
         'constant_dt': 0.0,
         'fixed_frame': 'base_link',
         'use_mag': False,
