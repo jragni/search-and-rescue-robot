@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro" name="transbot">
-    <xacro:macro name="transbot" params="prefix:=robot10">
-<!--        <xacro:property name="pi" value="3.1415926"/>-->
+    <xacro:macro name="transbot">
+       <xacro:property name="pi" value="3.1415926"/>
         <material name="color1">
             <color rgba="0 0.7 0 1"/>
         </material>
@@ -14,8 +14,8 @@
         <material name="color4">
             <color rgba="0 0 0 1"/>
         </material>
-        <link name="${prefix}/base_footprint"/>
-        <link name="${prefix}/base_link">
+        <link name="base_footprint"/>
+        <link name="base_link">
             <inertial>
                 <origin xyz="-0.011 0.0002 -0.00832" rpy="0 0 0"/>
                 <mass value="1.1011218463245"/>
@@ -41,12 +41,12 @@
                 </geometry>
             </collision>
         </link>
-        <joint name="${prefix}/base_joint" type="fixed">
-            <parent link="${prefix}/base_footprint"/>
-            <child link="${prefix}/base_link"/>
+        <joint name="base_joint" type="fixed">
+            <parent link="base_footprint"/>
+            <child link="base_link"/>
             <origin xyz="0.0 0.0 0.08" rpy="0 0 0"/>
         </joint>
-        <link name="${prefix}/astra_link">
+        <link name="astra_link">
             <inertial>
                 <origin xyz="0.0003 -3.63185E-06 -0.01238" rpy="0 0 0"/>
                 <mass value="0.249477026881758"/>
@@ -72,14 +72,14 @@
                 </geometry>
             </collision>
         </link>
-        <joint name="${prefix}/astra_joint" type="revolute">
+        <joint name="astra_joint" type="revolute">
             <origin xyz="0.0484 0 0.10494" rpy="0 0 0"/>
-            <parent link="${prefix}/base_link"/>
-            <child link="${prefix}/astra_link"/>
+            <parent link="base_link"/>
+            <child link="astra_link"/>
             <axis xyz="0 0 1"/>
             <limit lower="-0.52358" upper="0.52358" effort="100" velocity="1"/>
         </joint>
-        <link name="${prefix}/arm">
+        <link name="arm">
             <inertial>
                 <origin xyz="-0.006174 8.44369E-05 0.0132" rpy="0 0 0"/>
                 <mass value="0.067681113134478"/>
@@ -105,13 +105,13 @@
                 </geometry>
             </collision>
         </link>
-        <joint name="${prefix}/arm_joint" type="fixed">
+        <joint name="arm_joint" type="fixed">
             <origin xyz="0.12925 0 -0.014083" rpy="-0.7854 0 ${-pi/2}"/>
-            <parent link="${prefix}/base_link"/>
-            <child link="${prefix}/arm"/>
+            <parent link="base_link"/>
+            <child link="arm"/>
             <axis xyz="0 0 0"/>
         </joint>
-        <link name="${prefix}/arm_link1">
+        <link name="arm_link1">
             <inertial>
                 <origin xyz="-0.00227 0.024777 0.000485" rpy="0 ${pi/2} 0"/>
                 <mass value="0.0315348657457593"/>
@@ -137,14 +137,14 @@
                 </geometry>
             </collision>
         </link>
-        <joint name="${prefix}/arm_joint1" type="revolute">
+        <joint name="arm_joint1" type="revolute">
             <origin xyz="0 0.0295 0.0471" rpy="0 ${-pi/2} ${pi}"/>
-            <parent link="${prefix}/arm"/>
-            <child link="${prefix}/arm_link1"/>
+            <parent link="arm"/>
+            <child link="arm_link1"/>
             <axis xyz="0 0 1"/>
             <limit lower="-3.927" upper="0" effort="100" velocity="1"/>
         </joint>
-        <link name="${prefix}/arm_link2">
+        <link name="arm_link2">
             <inertial>
                 <origin xyz="-0.012 0.04428 -0.00083" rpy="0 0 0"/>
                 <mass value="0.064068284960248"/>
@@ -170,14 +170,14 @@
                 </geometry>
             </collision>
         </link>
-        <joint name="${prefix}/arm_joint2" type="revolute">
+        <joint name="arm_joint2" type="revolute">
             <origin xyz="0 0.08285 0" rpy="0 0 -2.3562"/>
-            <parent link="${prefix}/arm_link1"/>
-            <child link="${prefix}/arm_link2"/>
+            <parent link="arm_link1"/>
+            <child link="arm_link2"/>
             <axis xyz="0 0 1"/>
             <limit lower="-0.2617" upper="3.926875" effort="100" velocity="1"/>
         </joint>
-        <link name="${prefix}/right_link1">
+        <link name="right_link1">
             <inertial>
                 <origin xyz="-0.00022 0.0042 0.0001565" rpy="0 0 0"/>
                 <mass value="0.00183348845051841"/>
@@ -203,14 +203,14 @@
                 </geometry>
             </collision>
         </link>
-        <joint name="${prefix}/Jaws_joint" type="revolute">
+        <joint name="Jaws_joint" type="revolute">
             <origin xyz="0.0045 0.06415 -0.01185" rpy="0 ${pi/2} 0"/>
-            <parent link="${prefix}/arm_link2"/>
-            <child link="${prefix}/right_link1"/>
+            <parent link="arm_link2"/>
+            <child link="right_link1"/>
             <axis xyz="0 0 1"/>
             <limit lower="-1.6" upper="0" effort="100" velocity="1"/>
         </joint>
-        <link name="${prefix}/right_link2">
+        <link name="right_link2">
             <inertial>
                 <origin xyz="-0.0062 0.020796 -0.0031" rpy="0 0 0"/>
                 <mass value="0.00249011366902266"/>
@@ -236,14 +236,14 @@
                 </geometry>
             </collision>
         </link>
-        <joint name="${prefix}/right_joint2" type="continuous">
+        <joint name="right_joint2" type="continuous">
             <origin xyz="0.0009 0.03 0" rpy="0 0 0"/>
-            <parent link="${prefix}/right_link1"/>
-            <child link="${prefix}/right_link2"/>
+            <parent link="right_link1"/>
+            <child link="right_link2"/>
             <axis xyz="0 0 -1"/>
-            <mimic joint="${prefix}/Jaws_joint" multiplier="1"/>
+            <mimic joint="Jaws_joint" multiplier="1"/>
         </joint>
-        <link name="${prefix}/right_link3">
+        <link name="right_link3">
             <inertial>
                 <origin xyz="6.84923716706099E-05 0.018624 -0.00265" rpy="0 0 0"/>
                 <mass value="0.000745"/>
@@ -269,14 +269,14 @@
                 </geometry>
             </collision>
         </link>
-        <joint name="${prefix}/right_joint3" type="continuous">
+        <joint name="right_joint3" type="continuous">
             <origin xyz="0.0045 0.08215 -0.00395" rpy="0 ${pi/2} 0"/>
-            <parent link="${prefix}/arm_link2"/>
-            <child link="${prefix}/right_link3"/>
+            <parent link="arm_link2"/>
+            <child link="right_link3"/>
             <axis xyz="0 0 1"/>
-            <mimic joint="${prefix}/right_joint2" multiplier="1"/>
+            <mimic joint="right_joint2" multiplier="1"/>
         </joint>
-        <link name="${prefix}/left_link1">
+        <link name="left_link1">
             <inertial>
                 <origin xyz="0.0002688 0.00628852 0.001" rpy="0 0 0"/>
                 <mass value="0.00121"/>
@@ -302,14 +302,14 @@
                 </geometry>
             </collision>
         </link>
-        <joint name="${prefix}/left_joint1" type="continuous">
+        <joint name="left_joint1" type="continuous">
             <origin xyz="0.0045 0.06415 0.0127" rpy="0 ${pi/2} 0"/>
-            <parent link="${prefix}/arm_link2"/>
-            <child link="${prefix}/left_link1"/>
+            <parent link="arm_link2"/>
+            <child link="left_link1"/>
             <axis xyz="0 0 1"/>
-            <mimic joint="${prefix}/Jaws_joint" multiplier="-1"/>
+            <mimic joint="Jaws_joint" multiplier="-1"/>
         </joint>
-        <link name="${prefix}/left_link2">
+        <link name="left_link2">
             <inertial>
                 <origin xyz="0.0062 0.0208 -0.0031" rpy="0 0 0"/>
                 <mass value="0.00249011366902267"/>
@@ -335,14 +335,14 @@
                 </geometry>
             </collision>
         </link>
-        <joint name="${prefix}/left_joint2" type="continuous">
+        <joint name="left_joint2" type="continuous">
             <origin xyz="-0.00091 0.03 0" rpy="0 0 0"/>
-            <parent link="${prefix}/left_link1"/>
-            <child link="${prefix}/left_link2"/>
+            <parent link="left_link1"/>
+            <child link="left_link2"/>
             <axis xyz="0 0 1"/>
-            <mimic joint="${prefix}/left_joint1" multiplier="-1"/>
+            <mimic joint="left_joint1" multiplier="-1"/>
         </joint>
-        <link name="${prefix}/left_link3">
+        <link name="left_link3">
             <inertial>
                 <origin xyz="8.14319609551461E-05 0.018624 -0.0035" rpy="0 0 0"/>
                 <mass value="0.000745"/>
@@ -368,13 +368,13 @@
                 </geometry>
             </collision>
         </link>
-        <joint name="${prefix}/left_joint3" type="continuous">
+        <joint name="left_joint3" type="continuous">
             <origin xyz="0.0045 0.08215 0.00505" rpy="0 ${pi/2} 0"/>
-            <parent link="${prefix}/arm_link2"/>
-            <child link="${prefix}/left_link3"/>
+            <parent link="arm_link2"/>
+            <child link="left_link3"/>
             <axis xyz="0 0 1"/>
-            <mimic joint="${prefix}/left_joint2" multiplier="-1"/>
+            <mimic joint="left_joint2" multiplier="-1"/>
         </joint>
     </xacro:macro>
-    <xacro:transbot prefix=""/>
+    <xacro:transbot/>
 </robot>
