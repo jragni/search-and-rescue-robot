@@ -25,11 +25,6 @@ def generate_launch_description():
     )
 
     # Transbot urdf and robot state publisher 
-    # TODO fix to launch
-    # description_pkg_path = os.path.join(get_package_share_directory('transbot_description'))
-    # description_launch_file = os.path.join(get_package_share_directory('transbot_description'))
-    # xacro_file = os.path.join(description_pkg_path, 'urdf', 'transbot_astra.urdf.xacro')
-    # robot_description_config = xacro.process_file(xacro_file)
 
     description_pkg_path = os.path.join(get_package_share_directory('transbot_description'))
     description_launch = IncludeLaunchDescription(
@@ -40,25 +35,6 @@ def generate_launch_description():
             )
         )
     )
-
-    # robot_state_params = {
-    #     'robot_description': robot_description_config.toxml(),
-    #     'use_sim_time': use_sim_time
-    # }
-
-    # node_robot_state_publisher_node = Node(
-    #     package='robot_state_publisher',
-    #     executable='robot_state_publisher',
-    #     output='screen',
-    #     parameters=[robot_state_params]
-    # )
-
-    # # joint state publisher
-    # joint_state_publisher_node = Node(
-    #     package='joint_state_publisher',
-    #     executable='joint_state_publisher',
-    #     name='joint_state_publisher'
-    # )
 
     # imu calib node
     bringup_pkg_path = get_package_share_directory('transbot_bringup')
