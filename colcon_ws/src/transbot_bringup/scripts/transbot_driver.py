@@ -118,7 +118,7 @@ class TransbotDriver(Node):
                 if joint.run_time != 0:
                     self.bot.set_uart_servo_angle(joint.id, joint.angle, joint.run_time)
         else:
-            self.get_logger.warn(f"angles received will cause collision, ignoring...")
+            self.get_logger().warn(f"angles received will cause collision, ignoring...")
 
 
     def cmd_vel_callback(self, msg):
