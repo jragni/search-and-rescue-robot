@@ -2,8 +2,9 @@ import os
 import xacro
 
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.substitutions import LaunchConfiguration
+from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
 
 from ament_index_python.packages import get_package_share_directory
@@ -25,28 +26,39 @@ def generate_launch_description():
 
     # Transbot urdf and robot state publisher 
     # TODO fix to launch
+    # description_pkg_path = os.path.join(get_package_share_directory('transbot_description'))
+    # description_launch_file = os.path.join(get_package_share_directory('transbot_description'))
+    # xacro_file = os.path.join(description_pkg_path, 'urdf', 'transbot_astra.urdf.xacro')
+    # robot_description_config = xacro.process_file(xacro_file)
+
     description_pkg_path = os.path.join(get_package_share_directory('transbot_description'))
-    xacro_file = os.path.join(description_pkg_path, 'urdf', 'transbot_astra.urdf.xacro')
-    robot_description_config = xacro.process_file(xacro_file)
-
-    robot_state_params = {
-        'robot_description': robot_description_config.toxml(),
-        'use_sim_time': use_sim_time
-    }
-
-    node_robot_state_publisher_node = Node(
-        package='robot_state_publisher',
-        executable='robot_state_publisher',
-        output='screen',
-        parameters=[robot_state_params]
+    description_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(
+                description_pkg_path,
+                'launch/transbot_description.launch.py'
+            )
+        )
     )
 
-    # joint state publisher
-    joint_state_publisher_node = Node(
-        package='joint_state_publisher',
-        executable='joint_state_publisher',
-        name='joint_state_publisher'
-    )
+    # robot_state_params = {
+    #     'robot_description': robot_description_config.toxml(),
+    #     'use_sim_time': use_sim_time
+    # }
+
+    # node_robot_state_publisher_node = Node(
+    #     package='robot_state_publisher',
+    #     executable='robot_state_publisher',
+    #     output='screen',
+    #     parameters=[robot_state_params]
+    # )
+
+    # # joint state publisher
+    # joint_state_publisher_node = Node(
+    #     package='joint_state_publisher',
+    #     executable='joint_state_publisher',
+    #     name='joint_state_publisher'
+    # )
 
     # imu calib node
     bringup_pkg_path = get_package_share_directory('transbot_bringup')
@@ -110,10 +122,11 @@ def generate_launch_description():
 
     return LaunchDescription([
         declare_use_sim_time,
+        description_launch,
         bringup_node,
         base_node,
         apply_calib_node,
         imu_filter_node,
-        static_transform_publisher_node,
-        joint_state_publisher_node,
+        # static_transform_publisher_node,
+        # joint_state_publisher_node,
     ])
