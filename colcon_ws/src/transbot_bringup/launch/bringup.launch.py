@@ -23,7 +23,8 @@ def generate_launch_description():
         output="screen"
     )
 
-    # Transbot urdf and robot state publisher
+    # Transbot urdf and robot state publisher 
+    # TODO fix to launch
     description_pkg_path = os.path.join(get_package_share_directory('transbot_description'))
     xacro_file = os.path.join(description_pkg_path, 'urdf', 'transbot_astra.urdf.xacro')
     robot_description_config = xacro.process_file(xacro_file)
