@@ -101,7 +101,7 @@ class TransbotDriver(Node):
         self.bot.create_receive_threading()
         # set arm to default config
         self.bot.set_uart_servo_angle(7,225)
-        self.bot.set_uart_servo_angle(9,90)
+        self.bot.set_uart_servo_angle(8,90)
         self.bot.set_uart_servo_angle(9,30)
 
         self.get_logger().info('Starting driver node')
