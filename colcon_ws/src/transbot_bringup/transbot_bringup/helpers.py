@@ -30,17 +30,17 @@ def is_arm_within_limits(
     return x >= x_min and y >= y_min
 
 
-    def correct_gyro(ax: float, ay: float, az: float)->tuple(float, float, float):
-        """correct the gyro readings.
+def correct_gyro(ax: float, ay: float, az: float)->tuple(float, float, float):
+    """correct the gyro readings.
 
-        Since the IMU is mounted with the x facing 90 degrees clockwise
-        about the z-axis, we need to adjust it
-        """
-        p = np.transpose(np.array([ax, ay, az]))
-        rotation_matrix = [
-            [cos(-pi / 2), sin(-pi/2), 0],
-            [sin(-pi / 2), cos(-pi / 2), 0],
-            [0, 0, 1]
-        ]
-        corrected = np.dot(rotation_matrix, p)
-        return corrected[0], corrected[1], corrected[2]
+    Since the IMU is mounted with the x facing 90 degrees clockwise
+    about the z-axis, we need to adjust it
+    """
+    p = np.transpose(np.array([ax, ay, az]))
+    rotation_matrix = [
+        [cos(-pi / 2), sin(-pi/2), 0],
+        [sin(-pi / 2), cos(-pi / 2), 0],
+        [0, 0, 1]
+    ]
+    corrected = np.dot(rotation_matrix, p)
+    return corrected[0], corrected[1], corrected[2]
