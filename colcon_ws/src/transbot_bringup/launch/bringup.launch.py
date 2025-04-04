@@ -73,7 +73,7 @@ def generate_launch_description():
     )
 
     rgbd_camera_static_transform_publisher_node = Node(
-        package='tf2_ros'
+        package='tf2_ros',
         executable='static_transform_publisher'
         name='astra_link_to_camera_link',
         arguments=[
