@@ -76,7 +76,7 @@ def generate_launch_description():
     lidar_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(
-                description_pkg_path,
+                lidar_launch_path,
                 'launch/sllidar_a1_launch.py'
             )
         )
