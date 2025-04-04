@@ -66,8 +66,8 @@ def generate_launch_description():
             '--y', '0.0',
             '--z', '0.2',
             '--qx', '0',
-            '--qy', '0',
-            '--qw', '1',
+            '--qy', '0.7071',
+            '--qw', '0.7071',
             '--frame-id', 'base_link',
             '--child-frame-id', 'imu_link',
         ]
