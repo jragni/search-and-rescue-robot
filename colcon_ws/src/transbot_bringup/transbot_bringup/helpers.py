@@ -30,7 +30,7 @@ def is_arm_within_limits(
     return x >= x_min and y >= y_min
 
 
-def correct_gyro(ax: float, ay: float, az: float)->tuple(float, float, float):
+def correct_gyro(ax, ay, az):
     """correct the gyro readings.
 
     Since the IMU is mounted with the x facing 90 degrees clockwise
