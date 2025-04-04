@@ -110,7 +110,7 @@ def generate_launch_description():
         declare_use_sim_time,
         bringup_node,
         description_launch,
-        imu_static_transform_publisher_node
+        imu_static_transform_publisher_node,
         imu_filter_node,
         base_node,
         lidar_launch,
