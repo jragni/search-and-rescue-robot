@@ -25,7 +25,6 @@ def generate_launch_description():
     )
 
     # Transbot urdf and robot state publisher 
-
     description_pkg_path = os.path.join(get_package_share_directory('transbot_description'))
     description_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -84,6 +83,7 @@ def generate_launch_description():
     return LaunchDescription([
         declare_use_sim_time,
         description_launch,
+        static_transform_publisher_node,
         bringup_node,
         base_node,
         imu_filter_node,
