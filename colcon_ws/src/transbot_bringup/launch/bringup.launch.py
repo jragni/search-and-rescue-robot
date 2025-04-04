@@ -101,18 +101,18 @@ def generate_launch_description():
     # astra camera launch
     astra_launch_path = os.path.join(get_package_share_directory('orbbec_camera'))
     astra_launch_args = {
-        "color_height": 480,
-        "color_width": 640,
-        "color_fps": 30,
-        "depth_width": 320,
-        "depth_height": 240,
-        "depth_fps": 30,
+        "color_height": "480",
+        "color_width": "640",
+        "color_fps": "30",
+        "depth_width": "320",
+        "depth_height": "240",
+        "depth_fps": "30",
         "depth_format": "Y11"
     }
 
     astra_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(os.path.join(astra_launch_path, 'launch/astra.launch.py')),
-        launch_arguments=astra_launch_args.items(),
+        launch_arguments=[(key, str(value)) for key, value in astra_launch_args.items()],
     )
 
     # base node
