@@ -86,8 +86,5 @@ def generate_launch_description():
         description_launch,
         bringup_node,
         base_node,
-        apply_calib_node,
         imu_filter_node,
-        # static_transform_publisher_node,
-        # joint_state_publisher_node,
     ])
