@@ -15,7 +15,7 @@ from sensor_msgs.msg import Imu
 from std_msgs.msg import Header, Int32
 
 from transbot_bringup.Transbot_Lib import Transbot
-from transbot_bringup.helpers import is_arm_within_limits
+from transbot_bringup.helpers import correct_gyro, is_arm_within_limits
 
 class TransbotDriver(Node):
     def __init__(self):
@@ -175,10 +175,11 @@ class TransbotDriver(Node):
         try:
             ax, ay, az = self.bot.get_accelerometer_data()
             gx, gy, gz = self.bot.get_gyroscope_data()
+            corrected_ax, corrected_ay, corrected_az = correct_gyro(ax, ay, az)
             imu_msg = Imu()
-            imu_msg.linear_acceleration.x = ax
-            imu_msg.linear_acceleration.y = ay
-            imu_msg.linear_acceleration.z = az
+            imu_msg.linear_acceleration.x = corrected_ax
+            imu_msg.linear_acceleration.y = corrected_ay
+            imu_msg.linear_acceleration.z = corrected_az
             imu_msg.angular_velocity.x = gx
             imu_msg.angular_velocity.y = gy
             imu_msg.angular_velocity.z = gz
