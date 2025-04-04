@@ -91,17 +91,19 @@ search-and-rescue-robot/
 │   │   ├── srv/
 │   │   ├── action/
 │   ├── transbot_bringup/
-│   │   ├── launch/
 │   │   ├── config/
+│   │   ├── include/
+│   │   ├── launch/
+│   │   ├── scripts/
 │   │   ├── src/
-│   │   │   ├── navigation/
-│   │   │   ├── detection/
-│   │   │   ├── rescue/
-│   │   ├── worlds/
-│   │   ├── models/
+│   │   ├── transbot_bringup/
+│   ├── transbot_description/
+│   │   ├── config/
+│   │   ├── launch/
 │   │   ├── meshes/
+│   │   ├── urdf/
+│   │   ├── worlds/
 ├── docker/
-├── docs/
 ```
 
 ## 📅 Development Timeline
