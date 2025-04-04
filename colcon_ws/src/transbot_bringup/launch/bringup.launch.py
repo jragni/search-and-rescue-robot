@@ -63,7 +63,7 @@ def generate_launch_description():
         arguments=[
             '--x', '0.0',
             '--y', '0.0',
-            '--z', '0.2',
+            '--z', '0.02',
             '--qx', '0',
             '--qy', '0',
             '--qw', '1',
@@ -92,10 +92,10 @@ def generate_launch_description():
 
     return LaunchDescription([
         declare_use_sim_time,
+        bringup_node,
         description_launch,
         static_transform_publisher_node,
-        bringup_node,
+        imu_filter_node,
         base_node,
         lidar_launch,
-        imu_filter_node,
     ])
