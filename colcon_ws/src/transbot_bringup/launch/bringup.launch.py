@@ -133,4 +133,5 @@ def generate_launch_description():
         base_node,
         lidar_launch,
         rgbd_camera_static_transform_publisher_node,
+        astra_launch,
     ])
