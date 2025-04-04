@@ -36,20 +36,6 @@ def generate_launch_description():
         )
     )
 
-    # imu calib node
-    bringup_pkg_path = get_package_share_directory('transbot_bringup')
-    apply_calib_params = {
-        "calib_file": os.path.join(bringup_pkg_path, 'config', 'imu_calib.yaml'),
-        "calibrate_gyros": True,
-    }
-
-    apply_calib_node = Node(
-        package="imu_calib",
-        executable="apply_calib",
-        output="screen",
-        parameters=[apply_calib_params]
-    )
-
     # imu filter node
     imu_filter_params = {
         'gain': 0.05,
@@ -85,7 +71,6 @@ def generate_launch_description():
             '--frame-id', 'base_link',
             '--child-frame-id', 'imu_link',
         ]
-        #arguments=['0.0', '0', '0.02', '0', '0', '0', '1', '/base_link', '/imu_link']
     )
 
     # base node

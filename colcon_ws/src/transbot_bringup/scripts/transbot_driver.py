@@ -90,7 +90,7 @@ class TransbotDriver(Node):
 
         self.imu_pub_ = self.create_publisher(
             Imu,
-            '/transbot/imu',
+            '/imu/data_raw',
             10
         )
 
