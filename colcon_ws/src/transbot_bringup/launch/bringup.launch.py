@@ -56,7 +56,7 @@ def generate_launch_description():
     )
 
     # static transform
-    static_transform_publisher_node = Node(
+    imu_static_transform_publisher_node = Node(
         package='tf2_ros',
         executable='static_transform_publisher',
         name='base_link_to_imu_link',
@@ -72,11 +72,11 @@ def generate_launch_description():
         ]
     )
 
-    static_transform_publisher_node = Node(
-      package='tf2_ros'
-      executable='static_transform_publisher'
-      name='astra_link_to_camera_link',
-      arguments=[
+    rgbd_camera_static_transform_publisher_node = Node(
+        package='tf2_ros'
+        executable='static_transform_publisher'
+        name='astra_link_to_camera_link',
+        arguments=[
             '--x', '0.0',
             '--y', '0.0',
             '--z', '0.02',
@@ -110,8 +110,9 @@ def generate_launch_description():
         declare_use_sim_time,
         bringup_node,
         description_launch,
-        static_transform_publisher_node,
+        imu_static_transform_publisher_node
         imu_filter_node,
         base_node,
         lidar_launch,
+        rgbd_camera_static_transform_publisher_node,
     ])
