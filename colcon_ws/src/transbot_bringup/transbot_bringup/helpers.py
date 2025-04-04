@@ -38,9 +38,9 @@ def correct_gyro(ax, ay, az):
     """
     p = np.transpose(np.array([ax, ay, az]))
     rotation_matrix = [
-        [cos(-pi / 2), sin(-pi / 2), 0],
-        [-sin(-pi / 2), cos(-pi / 2), 0],
-        [0, 0, 1]
+        [cos(-pi / 2), sin(-pi / 2), 0.0],
+        [-sin(-pi / 2), cos(-pi / 2), 0.0],
+        [0.0, 0.0, 1.0]
     ]
     corrected = np.dot(rotation_matrix, p)
     return corrected[0], corrected[1], corrected[2]

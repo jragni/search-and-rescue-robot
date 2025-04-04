@@ -177,9 +177,9 @@ class TransbotDriver(Node):
             gx, gy, gz = self.bot.get_gyroscope_data()
             corrected_ax, corrected_ay, corrected_az = correct_gyro(ax, ay, az)
             imu_msg = Imu()
-            imu_msg.linear_acceleration.x = corrected_ax
-            imu_msg.linear_acceleration.y = corrected_ay
-            imu_msg.linear_acceleration.z = corrected_az
+            imu_msg.linear_acceleration.x = float(corrected_ax)
+            imu_msg.linear_acceleration.y = float(corrected_ay)
+            imu_msg.linear_acceleration.z = float(corrected_az)
             imu_msg.angular_velocity.x = gx
             imu_msg.angular_velocity.y = gy
             imu_msg.angular_velocity.z = gz
