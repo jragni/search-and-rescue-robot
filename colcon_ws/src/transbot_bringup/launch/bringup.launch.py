@@ -99,7 +99,7 @@ def generate_launch_description():
     )
 
     # astra camera launch
-    astra_launch_path = os.path(get_package_share_directory('orbbec_camera'))
+    astra_launch_path = os.path.join(get_package_share_directory('orbbec_camera'))
     astra_launch_args = {
         "color_height": 480,
         "color_width": 640,
