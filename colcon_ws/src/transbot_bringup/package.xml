@@ -17,8 +17,9 @@
   <depend>transbot_msgs</depend>
   <depend>tf2</depend>
 
-  <exec_depend>transbot_description</exec_depend>
   <exec_depend>imu_filter_madgwick</exec_depend>
+  <exec_depend>sllidar_ros2</exec_depend>
+  <exec_depend>transbot_description</exec_depend>
 
   <build_depend>tf2_geometry_msgs</build_depend>
   <exec_depend>tf2_geometry_msgs</exec_depend>
