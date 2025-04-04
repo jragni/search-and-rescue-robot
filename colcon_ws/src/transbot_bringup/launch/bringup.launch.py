@@ -72,6 +72,22 @@ def generate_launch_description():
         ]
     )
 
+    static_transform_publisher_node = Node(
+      package='tf2_ros'
+      executable='static_transform_publisher'
+      name='astra_link_to_camera_link',
+      arguments=[
+            '--x', '0.0',
+            '--y', '0.0',
+            '--z', '0.02',
+            '--qx', '0',
+            '--qy', '0',
+            '--qw', '1',
+            '--frame-id', 'astra_link',
+            '--child-frame-id', 'camera_link',
+      ]
+    )
+
     lidar_launch_path = os.path.join(get_package_share_directory('sllidar_ros2'))
     lidar_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
