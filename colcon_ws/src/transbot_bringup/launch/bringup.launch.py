@@ -72,6 +72,16 @@ def generate_launch_description():
         ]
     )
 
+    lidar_launch_path = os.path.join(get_package_share_directory('sllidar_ros2'))
+    lidar_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(
+                description_pkg_path,
+                'launch/sllidar_a1_launch.py'
+            )
+        )
+    )
+
     # base node
     base_node = Node(
         package='transbot_bringup',
@@ -86,5 +96,6 @@ def generate_launch_description():
         static_transform_publisher_node,
         bringup_node,
         base_node,
+        lidar_launch,
         imu_filter_node,
     ])
