@@ -21,11 +21,11 @@ class BaseNode : public rclcpp::Node {
       y_pos_(0.0),
       heading_(0.0) {
 
-      odom_publisher_ = this->create_publisher<nav_msgs::msg::Odometry>("odom", 10);
+      odom_publisher_ = this->create_publisher<nav_msgs::msg::Odometry>("odom_raw", 10);
       velocity_subscriber_ = this->create_subscription<geometry_msgs::msg::Twist>(
         "cmd_vel",
         50,
-        std::bind(&BaseNode::velocity_callback, this, std::placeholders::_1)
+        std::bind(&BaseNode::odom_callback, this, std::placeholders::_1)
       );
 
       this->declare_parameter("linear_scale", 1.2);
@@ -35,7 +35,7 @@ class BaseNode : public rclcpp::Node {
     }
     
     private:
-      void velocity_callback(const geometry_msgs::msg::Twist::SharedPtr msg) {
+      void odom_callback(const geometry_msgs::msg::Twist::SharedPtr msg) {
         // Scale the velocity message
         rclcpp::Time current_time = this->now();
         linear_velocity_x_ = msg->linear.x * linear_scale_;

@@ -72,6 +72,7 @@ def generate_launch_description():
         ]
     )
 
+    # astra camera static transform
     rgbd_camera_static_transform_publisher_node = Node(
         package='tf2_ros',
         executable='static_transform_publisher',
@@ -88,6 +89,7 @@ def generate_launch_description():
       ]
     )
 
+    # lidar launch
     lidar_launch_path = os.path.join(get_package_share_directory('sllidar_ros2'))
     lidar_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -115,7 +117,7 @@ def generate_launch_description():
         launch_arguments=[(key, str(value)) for key, value in astra_launch_args.items()],
     )
 
-    # base node
+    # base node for odometry
     base_node = Node(
         package='transbot_bringup',
         executable='base_node',
@@ -141,6 +143,21 @@ def generate_launch_description():
       ]
     )
 
+    # robot state estimation
+    bringup_package_path = get_package_share_directory("transbot_bringup")
+    ekf_params_path = os.path.join(
+        bringup_package_path,
+        "config",
+        "ekf_localization.yaml"
+    )
+
+    ekf_node = Node(
+        package="robot_localization",
+        executable="ekf_localization_node",
+        parameters=[ekf_params_path]
+    )
+
+
     return LaunchDescription([
         declare_use_sim_time,
         bringup_node,
@@ -148,6 +165,7 @@ def generate_launch_description():
         imu_static_transform_publisher_node,
         imu_filter_node,
         base_node,
+        ekf_node,
         lidar_launch,
         rgbd_camera_static_transform_publisher_node,
         astra_launch,

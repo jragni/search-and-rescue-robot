@@ -175,7 +175,9 @@ class TransbotDriver(Node):
         try:
             ax, ay, az = self.bot.get_accelerometer_data()
             gx, gy, gz = self.bot.get_gyroscope_data()
+            # It is corrected with respect to the mount of the IMU
             corrected_ax, corrected_ay, corrected_az = correct_gyro(ax, ay, az)
+
             imu_msg = Imu()
             imu_msg.linear_acceleration.x = float(corrected_ax)
             imu_msg.linear_acceleration.y = float(corrected_ay)
