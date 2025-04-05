@@ -2,7 +2,6 @@
   "name": "humble desktop-full",
   "dockerFile": "Dockerfile",
   "runArgs": [
-    "--privileged",
     "--network=host",
     "--privileged"
   ],

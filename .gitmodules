@@ -7,3 +7,7 @@
 [submodule "colcon_ws/src/OrbbecSDK_ROS2"]
 	path = colcon_ws/src/OrbbecSDK_ROS2
 	url = https://github.com/orbbec/OrbbecSDK_ROS2.git
+[submodule "colcon_ws/src/robot_localization"]
+	path = colcon_ws/src/robot_localization
+	url = https://github.com/cra-ros-pkg/robot_localization.git
+	branch = ros2
