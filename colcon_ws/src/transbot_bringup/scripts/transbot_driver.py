@@ -199,8 +199,8 @@ class TransbotDriver(Node):
         try:
             vel_msg = Twist()
             linear_velocity, angular_velocity = self.bot.get_motion_data()
-            vel_msg.linear.x = linear_velocity
-            vel_msg.angular.z = angular_velocity
+            vel_msg.linear.x = float(linear_velocity)
+            vel_msg.angular.z = float(angular_velocity)
             self.velocity_pub_.publish(vel_msg)
         except Exception as e:
             self.get_logger().error(f"Error getting motion data: {e}")

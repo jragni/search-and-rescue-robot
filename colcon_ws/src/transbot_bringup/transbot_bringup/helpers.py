@@ -5,8 +5,8 @@ import numpy as np
 
 def is_arm_within_limits(
     angles: list[float | int],
-    x_min: float,
-    y_min: float,
+    x_min: float | int,
+    y_min: float | int,
 ) -> bool:
     """Checks if the arm is within limits
 
