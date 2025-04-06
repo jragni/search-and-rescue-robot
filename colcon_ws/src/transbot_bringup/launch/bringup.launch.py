@@ -125,24 +125,6 @@ def generate_launch_description():
         parameters=[{'linear_scale': 1.2}]
     )
 
-    # map to odom publsiher
-    ## TODO shift to transbot_nav, okay for dev for now
-    map_static_transform_publisher_node = Node(
-        package='tf2_ros',
-        executable='static_transform_publisher',
-        name='map_link_to_odom_link',
-        arguments=[
-            '--x', '0.0',
-            '--y', '0.0',
-            '--z', '0.00',
-            '--qx', '0',
-            '--qy', '0',
-            '--qw', '1',
-            '--frame-id', 'map',
-            '--child-frame-id', 'odom',
-      ]
-    )
-
     # robot state estimation
     bringup_package_path = get_package_share_directory("transbot_bringup")
     ekf_params_path = os.path.join(
@@ -169,5 +151,4 @@ def generate_launch_description():
         lidar_launch,
         rgbd_camera_static_transform_publisher_node,
         astra_launch,
-        map_static_transform_publisher_node,
     ])
