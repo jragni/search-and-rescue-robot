@@ -52,7 +52,10 @@ RUN sudo apt-get update \
 
 # install orbbecSDK related dependencies (RGB-D Camera) and ros navigation package
 RUN sudo apt update && sudo apt upgrade -y && \ 
-sudo apt install libgflags-dev nlohmann-json3-dev  \
+sudo apt install \
+libgflags-dev \
+nlohmann-json3-dev  \
+libyaml-cpp-dev \
 ros-$ROS_DISTRO-image-transport \
 ros-${ROS_DISTRO}-image-transport-plugins \
 ros-${ROS_DISTRO}-compressed-image-transport \
@@ -71,8 +74,29 @@ ros-$ROS_DISTRO-turtlebot3* -y
 # Rosdep update
 RUN rosdep update
 
+# TODO add bashrc to source that ws
+WORKDIR /library_ws/src
+RUN git clone https://github.com/cra-ros-pkg/robot_localization.git -b humble-devel
+RUN git clone https://github.com/Slamtec/sllidar_ros2.git
+RUN git clone https://github.com/orbbec/OrbbecSDK_ROS2.git 
+
+# copy over rules
+RUN sudo cp OrbbecSDK_ROS2/orbbec_camera/scripts/99-obsensor-libusb.rules \
+/etc/udev/rules.d/
+RUN sudo cp sllidar_ros2/scripts/rplidar.rules /etc/udev/rules.d/
+
+WORKDIR ..
+
+RUN rosdep install --from-paths src --ignore-src -y
+
+# build library
+RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash && colcon build"
+
+WORKDIR /
+
 # Source the ROS setup file
 RUN echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc
+RUN echo "source /library_ws/install/setup.bash" >> ~/.bashrc
 
 RUN echo "export ROS_DOMAIN_ID=0" >> ~/.bashrc
 RUN echo "export ROS_LOCALHOST_ONLY=0" >> ~/.bashrc
