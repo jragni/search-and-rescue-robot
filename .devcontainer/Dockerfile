@@ -65,6 +65,7 @@ ros-$ROS_DISTRO-diagnostic-msgs \
 ros-$ROS_DISTRO-statistics-msgs \
 ros-$ROS_DISTRO-backward-ros libdw-dev \
 ros-$ROS_DISTRO-navigation2 \
+ros-$ROS_DISTRO-robot-localization \
 ros-$ROS_DISTRO-nav2-bringup \
 ros-$ROS_DISTRO-twist-mux \
 ros-$ROS_DISTRO-xacro \
@@ -76,7 +77,6 @@ RUN rosdep update
 
 # TODO add bashrc to source that ws
 WORKDIR /library_ws/src
-RUN git clone https://github.com/cra-ros-pkg/robot_localization.git -b humble-devel
 RUN git clone https://github.com/Slamtec/sllidar_ros2.git
 RUN git clone https://github.com/orbbec/OrbbecSDK_ROS2.git 
 
