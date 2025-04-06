@@ -153,7 +153,7 @@ def generate_launch_description():
 
     ekf_node = Node(
         package="robot_localization",
-        executable="ekf_localization_node",
+        executable="ekf_node",
         parameters=[ekf_params_path]
     )
 
