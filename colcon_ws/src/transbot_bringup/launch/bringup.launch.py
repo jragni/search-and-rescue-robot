@@ -136,18 +136,18 @@ def generate_launch_description():
     ekf_node = Node(
         package="robot_localization",
         executable="ekf_node",
-        parameters=[ekf_params_path]
-        remappings=[("odometry/filtered", "odom")]
+        parameters=[ekf_params_path],
+        remappings=[("odometry/filtered", "odom")],
     )
 
 
     return LaunchDescription([
         declare_use_sim_time,
         bringup_node,
+        base_node,
         description_launch,
         imu_static_transform_publisher_node,
         imu_filter_node,
-        base_node,
         ekf_node,
         lidar_launch,
         rgbd_camera_static_transform_publisher_node,
