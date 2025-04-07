@@ -137,6 +137,7 @@ def generate_launch_description():
         package="robot_localization",
         executable="ekf_node",
         parameters=[ekf_params_path]
+        remappings=[("odometry/filtered", "odom")]
     )
 
 

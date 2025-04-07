@@ -3,6 +3,7 @@ frequency: 20
 odom_frame: odom
 base_link_frame: base_footprint
 world_frame: odom
+map_frame: map
 
 two_d_mode: true
 
