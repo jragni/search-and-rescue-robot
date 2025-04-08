@@ -86,6 +86,7 @@ def generate_launch_description():
             '--qw', '1',
             '--frame-id', 'astra_link',
             '--child-frame-id', 'camera_link',
+        ]
     )
 
     # lidar launch
