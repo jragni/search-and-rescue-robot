@@ -86,7 +86,6 @@ def generate_launch_description():
             '--qw', '1',
             '--frame-id', 'astra_link',
             '--child-frame-id', 'camera_link',
-      https://github.com/jragni/robot_pose_publisher_ros2.git]
     )
 
     # lidar launch
