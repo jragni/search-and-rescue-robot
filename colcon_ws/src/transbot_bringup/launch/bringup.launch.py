@@ -35,17 +35,6 @@ def generate_launch_description():
         )
     )
 
-    # map to odom publisher
-    robot_pose_publisher_path = os.path.join(get_package_share_directory('robot_pose_publisher_ros2'))
-    robot_pose_publisher_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(
-                robot_pose_publisher_path,
-                'launch/robot_pose_publisher_launch.py'
-            )
-        )
-    )
-
     # imu filter node
     imu_filter_params = {
         'gain': 0.05,
@@ -97,7 +86,7 @@ def generate_launch_description():
             '--qw', '1',
             '--frame-id', 'astra_link',
             '--child-frame-id', 'camera_link',
-      ]
+      https://github.com/jragni/robot_pose_publisher_ros2.git]
     )
 
     # lidar launch
@@ -154,6 +143,8 @@ def generate_launch_description():
     # rtab map test
     parameters={
         'frame_id':'base_footprint',
+        'map_frame_id': 'map',
+        'odom_frame_id': 'odom',
         'use_sim_time':False,
         'subscribe_rgbd':True,
         'subscribe_scan':True,
@@ -195,7 +186,6 @@ def generate_launch_description():
         imu_static_transform_publisher_node,
         imu_filter_node,
         ekf_node,
-        robot_pose_publisher_launch,
         lidar_launch,
         rgbd_camera_static_transform_publisher_node,
         astra_launch,

@@ -17,7 +17,6 @@
   <depend>transbot_msgs</depend>
   <depend>tf2</depend>
   <depend>robot_localization</depend>
-  <depend>robot_pose_publisher_ros2</depend>
 
   <build_depend>tf2_geometry_msgs</build_depend>
 
