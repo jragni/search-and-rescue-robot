@@ -80,7 +80,6 @@ class BaseNode : public rclcpp::Node {
             odom.header.frame_id = "odom";
             odom.child_frame_id = "base_footprint";
 
-            RCLCPP_INFO(this->get_logger(), "%s", odom.header.frame_id.c_str());
             // robot's pose in x, y, and z
             odom.pose.pose.position.x = x_pos_;
             odom.pose.pose.position.y = y_pos_;
@@ -105,7 +104,6 @@ class BaseNode : public rclcpp::Node {
             odom.twist.covariance[7] = 0.001;
             odom.twist.covariance[35] = 0.001;
 
-            RCLCPP_INFO(this->get_logger(), "Odom PUBLISH");
             odom_publisher_->publish(odom);
 
             // TODO: add 3d translation in a later version
