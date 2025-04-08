@@ -40,7 +40,7 @@ def generate_launch_description():
     robot_pose_publisher_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(
-                description_pkg_path,
+                robot_pose_publisher_path,
                 'launch/robot_pose_publisher_launch.py'
             )
         )
