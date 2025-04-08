@@ -35,6 +35,17 @@ def generate_launch_description():
         )
     )
 
+    # map to odom publisher
+    robot_pose_publisher_path = os.path.join(get_package_share_directory('robot_pose_publisher_ros2'))
+    robot_pose_publisher_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(
+                description_pkg_path,
+                'launch/robot_pose_publisher_launch.py'
+            )
+        )
+    )
+
     # imu filter node
     imu_filter_params = {
         'gain': 0.05,
@@ -184,6 +195,7 @@ def generate_launch_description():
         imu_static_transform_publisher_node,
         imu_filter_node,
         ekf_node,
+        robot_pose_publisher_launch,
         lidar_launch,
         rgbd_camera_static_transform_publisher_node,
         astra_launch,
