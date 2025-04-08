@@ -1,0 +1,3 @@
+[submodule "colcon_ws/src/robot_pose_publisher_ros2"]
+	path = colcon_ws/src/robot_pose_publisher_ros2
+	url = https://github.com/jragni/robot_pose_publisher_ros2.git
