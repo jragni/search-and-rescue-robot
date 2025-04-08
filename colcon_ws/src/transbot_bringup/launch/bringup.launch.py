@@ -187,4 +187,6 @@ def generate_launch_description():
         lidar_launch,
         rgbd_camera_static_transform_publisher_node,
         astra_launch,
+        rtabmap_sync_node,
+        rtab_slam_node,
     ])
