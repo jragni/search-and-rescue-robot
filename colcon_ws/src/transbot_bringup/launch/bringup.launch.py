@@ -140,6 +140,41 @@ def generate_launch_description():
         remappings=[("odometry/filtered", "odom")],
     )
 
+    # rtab map test
+    parameters={
+        'frame_id':'base_footprint',
+        'use_sim_time':False,
+        'subscribe_rgbd':True,
+        'subscribe_scan':True,
+        'use_action_for_goal':True,
+        'qos_scan': 2,
+        'qos_image': 2,
+        'qos_imu': 2,
+        'Reg/Strategy':'1',
+        'Reg/Force3DoF':'true',
+        'RGBD/NeighborLinkRefining':'True',
+        'Grid/RangeMin':'0.2',
+        'Optimizer/GravitySigma':'0'
+    }
+
+    remappings=[
+        ('rgb/image', '/camera/color/image_raw'),
+        ('rgb/camera_info', '/camera/color/camera_info'),
+        ('depth/image', '/camera/depth/image_raw'),
+        ('odom', '/odom')
+    ]
+
+    rtabmap_sync_node = Node(
+        package='rtabmap_sync', executable='rgbd_sync', output='screen',
+        parameters=[{'approx_sync':True, 'approx_sync_max_interval':0.01, 'use_sim_time':use_sim_time, 'qos':2 }],
+        remappings=remappings
+    )
+
+    rtab_slam_node = Node(
+        package='rtabmap_slam', executable='rtabmap', output='screen',
+        parameters=[parameters],
+        remappings=remappings,
+    )
 
     return LaunchDescription([
         declare_use_sim_time,
