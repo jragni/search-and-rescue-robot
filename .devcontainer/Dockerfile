@@ -54,8 +54,9 @@ RUN sudo apt-get update \
 RUN sudo apt update && sudo apt upgrade -y && \ 
 sudo apt install \
 libgflags-dev \
-nlohmann-json3-dev  \
+nlohmann-json3-dev \
 libyaml-cpp-dev \
+ros-$ROS_DISTRO-rmw-zenoh-cpp \
 ros-$ROS_DISTRO-image-transport \
 ros-${ROS_DISTRO}-image-transport-plugins \
 ros-${ROS_DISTRO}-compressed-image-transport \
@@ -69,8 +70,7 @@ ros-$ROS_DISTRO-robot-localization \
 ros-$ROS_DISTRO-nav2-bringup \
 ros-$ROS_DISTRO-twist-mux \
 ros-$ROS_DISTRO-xacro \
-ros-$ROS_DISTRO-rtabmap-ros \
-ros-$ROS_DISTRO-turtlebot3* -y
+ros-$ROS_DISTRO-rtabmap-ros -y
 
 # Rosdep update
 RUN rosdep update
@@ -100,6 +100,8 @@ RUN echo "source /library_ws/install/setup.bash" >> ~/.bashrc
 
 RUN echo "export ROS_DOMAIN_ID=0" >> ~/.bashrc
 RUN echo "export ROS_LOCALHOST_ONLY=0" >> ~/.bashrc
+RUN echo "export RMW_IMPLEMENTATION=rmw_zenoh_cpp" >> ~/.bashrc
+# TODO add rmw zenoh setup
 
 WORKDIR /home/ubuntu
 
