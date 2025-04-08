@@ -171,7 +171,6 @@ def generate_launch_description():
     )
 
     rtab_slam_node = Node(
-        condition=UnlessCondition(localization),
         package='rtabmap_slam', executable='rtabmap', output='screen',
         parameters=[parameters],
         remappings=remappings,
