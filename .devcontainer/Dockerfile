@@ -100,8 +100,8 @@ RUN echo "source /library_ws/install/setup.bash" >> ~/.bashrc
 
 RUN echo "export ROS_DOMAIN_ID=0" >> ~/.bashrc
 RUN echo "export ROS_LOCALHOST_ONLY=0" >> ~/.bashrc
-RUN echo "export RMW_IMPLEMENTATION=rmw_zenoh_cpp" >> ~/.bashrc
 # TODO add rmw zenoh setup
+RUN echo "export RMW_IMPLEMENTATION=rmw_zenoh_cpp" >> ~/.bashrc
 
 WORKDIR /home/ubuntu
 
