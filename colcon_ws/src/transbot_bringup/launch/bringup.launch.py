@@ -157,7 +157,7 @@ def generate_launch_description():
         executable="republish",
         output="screen",
         arguments=["raw"],
-        remapping=image_transport_remappings
+        remappings=image_transport_remappings
     )
 
 
