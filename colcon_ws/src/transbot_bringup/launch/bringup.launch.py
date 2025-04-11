@@ -148,7 +148,7 @@ def generate_launch_description():
     #     ('odom', '/odom')
     # ]
     image_transport_remappings=[
-        ('in', '/camera/color/image_raw')
+        ('in', '/camera/color/image_raw'),
         ('out', '/camera/color/image_raw')
     ]
 
