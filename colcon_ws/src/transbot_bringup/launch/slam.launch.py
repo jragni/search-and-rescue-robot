@@ -36,7 +36,7 @@ def generate_launch_description():
 
     rtabmap_sync_node = Node(
         package='rtabmap_sync', executable='rgbd_sync', output='screen',
-        parameters=[{'approx_sync':True, 'approx_sync_max_interval':0.01, 'use_sim_time':false, 'qos':2 }],
+        parameters=[{'approx_sync':True, 'approx_sync_max_interval':0.01, 'use_sim_time': False, 'qos':2 }],
         remappings=remappings
     )
 
