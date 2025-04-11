@@ -14,12 +14,13 @@ def generate_launch_description():
         'map_frame_id': 'map',
         'odom_frame_id': 'odom',
         'use_sim_time':False,
+        'subscribe_depth': True,
         'subscribe_rgbd':True,
         'subscribe_scan':True,
         'use_action_for_goal':True,
-        'qos_scan': 2,
-        'qos_image': 2,
-        'qos_imu': 2,
+        #'qos_scan': 2,
+        #'qos_image': 2,
+        #'qos_imu': 2,
         'Reg/Strategy':'1',
         'Reg/Force3DoF':'true',
         'RGBD/NeighborLinkRefining':'True',
@@ -47,6 +48,6 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
-        rtabmap_sync_node,
         rtab_slam_node,
+        rtabmap_sync_node,
     ])

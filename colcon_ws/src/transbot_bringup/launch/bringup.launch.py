@@ -141,12 +141,24 @@ def generate_launch_description():
     )
 
     # TODO add image_transport nodes for rgb and depth
-    remappings=[
-        ('rgb/image', '/camera/color/image_raw'),
-        ('rgb/camera_info', '/camera/color/camera_info'),
-        ('depth/image', '/camera/depth/image_raw'),
-        ('odom', '/odom')
+    # remappings=[
+    #     ('rgb/image', '/camera/color/image_raw'),
+    #     ('rgb/camera_info', '/camera/color/camera_info'),
+    #     ('depth/image', '/camera/depth/image_raw'),
+    #     ('odom', '/odom')
+    # ]
+    image_transport_remappings=[
+        ('in', '/camera/color/image_raw')
+        ('out', '/camera/color/image_raw')
     ]
+
+    image_transport_node = Node(
+        package="image_transport",
+        executable="republish",
+        output="screen",
+        arguments=["raw"],
+        parameters=[image_transport_remappings]
+    )
 
 
     return LaunchDescription([
@@ -160,4 +172,5 @@ def generate_launch_description():
         lidar_launch,
         rgbd_camera_static_transform_publisher_node,
         astra_launch,
+        image_transport_node,
     ])
