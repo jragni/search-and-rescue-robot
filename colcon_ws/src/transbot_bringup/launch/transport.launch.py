@@ -22,7 +22,7 @@ def generate_launch_description():
         executable="republish",
         output="screen",
         arguments=["raw", "compressed"],
-        remapping=image_transport_remappings
+        remapping=rgb_image_transport_remappings
     )
 
     return LaunchDescription([
