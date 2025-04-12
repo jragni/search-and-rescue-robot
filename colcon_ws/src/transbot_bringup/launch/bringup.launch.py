@@ -144,12 +144,12 @@ def generate_launch_description():
     return LaunchDescription([
         declare_use_sim_time,
         bringup_node,
-        rgbd_camera_static_transform_publisher_node,
-        astra_launch,
         base_node,
         description_launch,
         imu_static_transform_publisher_node,
         imu_filter_node,
         ekf_node,
         lidar_launch,
+        rgbd_camera_static_transform_publisher_node,
+        astra_launch,
     ])
