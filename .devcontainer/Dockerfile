@@ -60,7 +60,9 @@ ros-$ROS_DISTRO-rmw-zenoh-cpp \
 ros-$ROS_DISTRO-image-transport \
 ros-${ROS_DISTRO}-image-transport-plugins \
 ros-${ROS_DISTRO}-compressed-image-transport \
-ros-$ROS_DISTRO-image-publisher ros-$ROS_DISTRO-camera-info-manager \
+ros-$ROS_DISTRO-image-publisher\
+ros-$ROS_DISTRO-camera-info-manager \
+ros-$ROS_DISTRO-point-cloud-transport \
 ros-$ROS_DISTRO-diagnostic-updater \
 ros-$ROS_DISTRO-diagnostic-msgs \
 ros-$ROS_DISTRO-statistics-msgs \
