@@ -140,27 +140,6 @@ def generate_launch_description():
         remappings=[("odometry/filtered", "odom")],
     )
 
-    # TODO add image_transport nodes for rgb and depth
-    # remappings=[
-    #     ('rgb/image', '/camera/color/image_raw'),
-    #     ('rgb/camera_info', '/camera/color/camera_info'),
-    #     ('depth/image', '/camera/depth/image_raw'),
-    #     ('odom', '/odom')
-    # ]
-    image_transport_remappings=[
-        ('in', '/camera/color/image_raw'),
-        ('out', '/camera/color/image_raw')
-    ]
-
-    image_transport_node = Node(
-        package="image_transport",
-        executable="republish",
-        output="screen",
-        arguments=["raw"],
-        remappings=image_transport_remappings
-    )
-
-
     return LaunchDescription([
         declare_use_sim_time,
         bringup_node,
