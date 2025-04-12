@@ -14,7 +14,7 @@ def generate_launch_description():
 
     rgb_image_transport_remappings=[
         ('in', '/camera/color/image_raw'),
-        ('out/compressed', '/camera/color/image_raw')
+        ('out/compressed', '/camera/color/image_raw/transport')
     ]
 
     rgb_image_transport_node = Node(
