@@ -18,12 +18,14 @@ def generate_launch_description():
     ]
 
     rgb_image_transport_node = Node(
-        package="image_transport",
-        executable="republish",
-        output="screen",
-        arguments=["raw", "compressed"],
-        remappings=rgb_image_transport_remappings
-    )
+        package='image_transport',
+        executable='republish',
+        output='screen',
+        name='republish',
+        remappings=[
+            ('in', 'image'),
+            ('out', '/camera/image_raw')
+        ], arguments=['raw'])
 
     return LaunchDescription([
         rgb_image_transport_node,
