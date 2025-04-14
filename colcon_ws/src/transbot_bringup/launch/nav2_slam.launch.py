@@ -31,3 +31,8 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(os.path.join( nav2_path, 'launch', 'navigation_launch.py')),
         launch_arguments={ 'params_file': nav2_config_path }.items()
     )
+
+    return LaunchDescription([
+        slam_toolbox_launch,
+        nav2_bringup_launch,
+    ])
