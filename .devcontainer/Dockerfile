@@ -78,22 +78,32 @@ ros-$ROS_DISTRO-rtabmap-ros -y
 # Rosdep update
 RUN rosdep update
 
+# Add dependency for orbbec camera ros2
+WORKDIR /library
+RUN git clone https://github.com/libuvc/libuvc.git
+WORKDIR /library/libuvc
+RUN mkdir build && cd build && cmake .. && make -j4 && sudo make install && sudo ldconfig
+
+WORKDIR /
+
 # TODO add bashrc to source that ws
 WORKDIR /library_ws/src
 RUN git clone https://github.com/Slamtec/sllidar_ros2.git
-RUN git clone https://github.com/orbbec/OrbbecSDK_ROS2.git 
+#RUN git clone https://github.com/orbbec/OrbbecSDK_ROS2.git
+RUN git clone https://github.com/orbbec/ros2_astra_camera.git
 
 # copy over rules
-RUN sudo cp OrbbecSDK_ROS2/orbbec_camera/scripts/99-obsensor-libusb.rules \
+#RUN sudo cp OrbbecSDK_ROS2/orbbec_camera/scripts/99-obsensor-libusb.rules \
+#/etc/udev/rules.d/
+RUN sudo cp ros2_astra_camera/astra_camera/scripts/56-orbbec-usb.rules \
 /etc/udev/rules.d/
+
 RUN sudo cp sllidar_ros2/scripts/rplidar.rules /etc/udev/rules.d/
 
 WORKDIR ..
 
-RUN rosdep install --from-paths src --ignore-src -y
-
 # build library
-RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash && colcon build"
+RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash && colcon build --event-handlers console_direct+ --cmake-args -DCMAKE_BUILD_TYPE=Release"
 
 WORKDIR /
 
