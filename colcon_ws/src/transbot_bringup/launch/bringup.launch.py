@@ -114,7 +114,7 @@ def generate_launch_description():
     # }
 
     astra_launch = IncludeLaunchDescription(
-        XMLLaunchDescriptionSource(os.path.join(astra_launch_path, 'astro_pro_plus.launch.xml')),
+        XMLLaunchDescriptionSource(os.path.join(astra_launch_path, 'launch/astro_pro_plus.launch.xml')),
         # launch_arguments=[(key, str(value)) for key, value in astra_launch_args.items()],
     )
 
