@@ -19,9 +19,7 @@ def generate_launch_description():
 
     slam_toolbox_path = os.path.join(get_package_share_directory('slam_toolbox'))
     slam_toolbox_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join( slam_toolbox_path, 'launch','online_async_launch.py')
-        ),
+        PythonLaunchDescriptionSource(os.path.join(slam_toolbox_path,'launch','online_async_launch.py')),
         launch_arguments=[{ 'slam_params_file': online_async_config_path, }.items()]
     )
 
@@ -30,10 +28,6 @@ def generate_launch_description():
 
     nav2_path = os.path.join(get_package_share_directory('nav2_bringup'))
     nav2_bringup_launch = IncludeLaunchDescription(
-        os.path.join(
-            PythonLaunchDescriptionSource(
-                os.path.join( nav2_path, 'launch', 'navigation_launch.py')
-            )
-        ),
+        PythonLaunchDescriptionSource(os.path.join( nav2_path, 'launch', 'navigation_launch.py')),
         launch_arguments=[{ 'params_file': nav2_config_path }.items()]
-        )
+    )
