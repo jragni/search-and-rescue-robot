@@ -40,7 +40,7 @@ RUN sudo apt install -y python3-pip && \
 
 # install lsusb
 RUN sudo apt-get update \
-    && sudo apt-get install -y usbutils \
+    && sudo apt-get install -y usbutils draco \
     && sudo apt-get clean \
     && sudo rm -rf /var/lib/apt/lists/*
 
@@ -63,6 +63,7 @@ ros-${ROS_DISTRO}-compressed-image-transport \
 ros-$ROS_DISTRO-image-publisher \
 ros-$ROS_DISTRO-camera-info-manager \
 ros-$ROS_DISTRO-point-cloud-transport \
+ros-$ROS_DISTRO-point-cloud-transport-plugins \
 ros-$ROS_DISTRO-diagnostic-updater \
 ros-$ROS_DISTRO-diagnostic-msgs \
 ros-$ROS_DISTRO-statistics-msgs \
