@@ -103,19 +103,14 @@ def generate_launch_description():
 
     # astra camera launch
     astra_launch_path = os.path.join(get_package_share_directory('astra_camera'))
-    # astra_launch_args = {
-    #     "color_height": "480",
-    #     "color_width": "640",
-    #     "color_fps": "30",
-    #     "depth_width": "320",
-    #     "depth_height": "240",
-    #     "depth_fps": "30",
-    #     "depth_format": "Y11"
-    # }
 
     astra_launch = IncludeLaunchDescription(
-        XMLLaunchDescriptionSource(os.path.join(astra_launch_path, 'launch/astro_pro_plus.launch.xml')),
-        # launch_arguments=[(key, str(value)) for key, value in astra_launch_args.items()],
+        XMLLaunchDescriptionSource(
+            os.path.join(
+                astra_launch_path,
+                'launch/astro_pro_plus.launch.xml'
+            )
+        ),
     )
 
     # base node for odometry
