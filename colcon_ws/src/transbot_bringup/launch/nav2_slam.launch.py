@@ -43,7 +43,5 @@ def generate_launch_description():
                 'navigation_launch.py'
             )
         ),
-        launch_arguments={
-            'params_file': nav2_config_path
-        }
-    )
+        launch_arguments={ 'params_file': nav2_config_path }.items()
+        )
