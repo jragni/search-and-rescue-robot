@@ -26,9 +26,7 @@ def generate_launch_description():
                 'online_async_launch.py'
             )
         ),
-        launch_arguments={
-            'slam_params_file': online_async_config_path,
-        }.items()
+        launch_arguments=[{ 'slam_params_file': online_async_config_path, }.items()]
     )
 
     # Launch Nav2
@@ -43,5 +41,5 @@ def generate_launch_description():
                 'navigation_launch.py'
             )
         ),
-        launch_arguments={ 'params_file': nav2_config_path }.items()
+        launch_arguments=[{ 'params_file': nav2_config_path }.items()]
         )
