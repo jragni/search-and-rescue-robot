@@ -4,7 +4,7 @@ import xacro
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.substitutions import LaunchConfiguration
-from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.launch_description_sources import PythonLaunchDescriptionSource, XMLLaunchDescriptionSource
 from launch_ros.actions import Node
 
 from ament_index_python.packages import get_package_share_directory
@@ -113,7 +113,7 @@ def generate_launch_description():
     # }
 
     astra_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(os.path.join(astra_launch_path, 'launch/astro_pro_plus.launch.xml')),
+        XMLLaunchDescriptionSource(os.path.join(astra_launch_path, 'astro_pro_plus.launch.xml')),
         # launch_arguments=[(key, str(value)) for key, value in astra_launch_args.items()],
     )
 
