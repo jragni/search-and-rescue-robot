@@ -136,7 +136,6 @@ def generate_launch_description():
         remappings=[("odometry/filtered", "odom")],
     )
 
-
     return LaunchDescription([
         declare_use_sim_time,
         bringup_node,
