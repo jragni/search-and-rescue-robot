@@ -111,7 +111,10 @@ def generate_launch_description():
                 'launch/astro_pro_plus.launch.xml'
             )
         ),
-        launch_arguments={ "publish_tf": 'false' }.items()
+        launch_arguments={
+            "enable_ir": 'false',
+            #"publish_tf": 'false',
+        }.items()
     )
 
     # base node for odometry
@@ -119,7 +122,6 @@ def generate_launch_description():
         package='transbot_bringup',
         executable='base_node',
         name='base_node',
-        parameters=[{'linear_scale': 1.2}]
     )
 
     # robot state estimation
@@ -140,12 +142,12 @@ def generate_launch_description():
     return LaunchDescription([
         declare_use_sim_time,
         bringup_node,
-        base_node,
-        description_launch,
-        imu_static_transform_publisher_node,
         imu_filter_node,
+        base_node,
         ekf_node,
+        description_launch,
         lidar_launch,
+        imu_static_transform_publisher_node,
         rgbd_camera_static_transform_publisher_node,
         astra_launch,
     ])
