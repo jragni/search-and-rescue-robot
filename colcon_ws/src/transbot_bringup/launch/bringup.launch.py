@@ -111,10 +111,6 @@ def generate_launch_description():
                 'launch/astro_pro_plus.launch.xml'
             )
         ),
-        launch_arguments={
-            "enable_ir": 'false',
-            #"publish_tf": 'false',
-        }.items()
     )
 
     # base node for odometry
