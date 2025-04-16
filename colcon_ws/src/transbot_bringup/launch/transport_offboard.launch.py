@@ -22,6 +22,19 @@ def generate_launch_description():
         arguments=['compressed', 'raw']
     )
 
+    rgb_image_transport_node = Node(
+        package='image_transport',
+        executable='republish',
+        output='screen',
+        name='republish_off_board_depth',
+        remappings=[
+            ('in/compressed', '/camera/depth/image_raw/compressed'),
+            ('out', '/camera/depth/image_raw/transport'),
+        ],
+        arguments=['compressed', 'raw']
+    )
+
     return LaunchDescription([
         rgb_image_transport_node,
+        depth_image_transport_node,
     ])

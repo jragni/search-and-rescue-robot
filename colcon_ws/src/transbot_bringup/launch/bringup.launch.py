@@ -135,6 +135,16 @@ def generate_launch_description():
         remappings=[("odometry/filtered", "odom")],
     )
 
+    # Data transport 
+    transport_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(
+                bringup_package_path,
+                'launch/transport_onboard.launch.py'
+            ),
+        )
+    )
+
     return LaunchDescription([
         declare_use_sim_time,
         bringup_node,
@@ -146,4 +156,5 @@ def generate_launch_description():
         imu_static_transform_publisher_node,
         rgbd_camera_static_transform_publisher_node,
         astra_launch,
+        transport_launch,
     ])
