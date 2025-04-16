@@ -109,11 +109,7 @@ def generate_launch_description():
             os.path.join(
                 astra_launch_path,
                 'launch/astro_pro_plus.launch.xml'
-            ),
-            launch_arguments={
-                "depth_height": "240",
-                "depth_width": "320",
-            }.items()
+            )
         ),
     )
 
