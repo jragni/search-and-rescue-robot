@@ -100,9 +100,9 @@ class BaseNode : public rclcpp::Node {
 
             // angular speed from encoders
             odom.twist.twist.angular.z = angular_velocity_z_;
-            odom.twist.covariance[0] = 0.001;
-            odom.twist.covariance[7] = 0.001;
-            odom.twist.covariance[35] = 0.001;
+            odom.twist.covariance[0] = 0.0001;
+            odom.twist.covariance[7] = 0.0001;
+            odom.twist.covariance[35] = 0.0001;
 
             odom_publisher_->publish(odom);
 
