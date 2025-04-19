@@ -11,10 +11,10 @@ def generate_launch_description():
     """
 
     rgb_image_transport_node = Node(
-        package='image_transport',
-        executable='republish',
-        output='screen',
-        name='republish_off_board_color',
+        package="image_transport",
+        executable="republish",
+        output="screen",
+        name="republish_off_board_color",
         remappings=[
             ('in/compressed', '/camera/color/image_raw/compressed'),
             ('out', '/camera/color/image_raw/transport'),
@@ -22,6 +22,21 @@ def generate_launch_description():
         arguments=['compressed', 'raw']
     )
 
+    point_cloud_transport_launch = Node(
+        package="point_cloud_transport",
+        executable="republish",
+        output="screen",
+        parameters=[{
+            "in_transport": "draco",
+            "out_transport": "raw",
+        }]
+        remappings=[
+            ('in/draco', '/camera/depth/points/draco'),
+            ('out', '/camera/depth/points/transport')
+        ]
+    )
+
     return LaunchDescription([
         rgb_image_transport_node,
+        point_cloud_transport_launch,
     ])
