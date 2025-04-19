@@ -34,10 +34,10 @@ ekf_filter_node:
       #  Vroll, Vpitch, Vyaw,
       #  Ax, Ay, Az ]
       imu0_config: [false, false, false,
-                    true, true, true,
+                    false, false, true,
                     false, false, false,
-                    true, true, false,
-                    true, true, true]
+                    false, false, true,
+                    false, false, false]
 
       imu0_differential: true
       imu0_relative: false

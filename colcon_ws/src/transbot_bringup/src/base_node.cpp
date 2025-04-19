@@ -25,7 +25,7 @@ class BaseNode : public rclcpp::Node {
 
       odom_publisher_ = this->create_publisher<nav_msgs::msg::Odometry>("odom_raw", 10);
       velocity_subscriber_ = this->create_subscription<geometry_msgs::msg::Twist>(
-        "cmd_vel",
+        "/transbot/get_vel",
         50,
         std::bind(&BaseNode::odom_callback, this, std::placeholders::_1)
       );
