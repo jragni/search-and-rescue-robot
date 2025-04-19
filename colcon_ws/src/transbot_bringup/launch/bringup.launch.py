@@ -131,6 +131,8 @@ def generate_launch_description():
     ekf_node = Node(
         package="robot_localization",
         executable="ekf_node",
+        name="ekf_node"
+        output="screen",
         parameters=[ekf_params_path, {'use_sim_time': use_sim_time}],
         remappings=[("odometry/filtered", "odom")],
     )
