@@ -23,7 +23,7 @@ class BaseNode : public rclcpp::Node {
       y_pos_(0.0),
       heading_(0.0) {
 
-      odom_publisher_ = this->create_publisher<nav_msgs::msg::Odometry>("odom_raw", 10);
+      odom_publisher_ = this->create_publisher<nav_msgs::msg::Odometry>("odom_raw", 50);
       velocity_subscriber_ = this->create_subscription<geometry_msgs::msg::Twist>(
         "/transbot/get_vel",
         50,
