@@ -28,7 +28,7 @@ def generate_launch_description():
         parameters=[{
             "in_transport": "raw",
             "out_transport": "draco",
-        }]
+        }],
         remappings=[
             ('in', '/camera/depth/points'),
             ('out/draco', '/camera/depth/points/draco')
