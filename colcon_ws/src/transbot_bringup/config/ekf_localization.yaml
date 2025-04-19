@@ -1,42 +1,44 @@
 ### ekf config file ###
-frequency: 20
+ekf_filter_node:
+    ros__parameters:
+      frequency: 20
 
-odom_frame: odom
-base_link_frame: base_footprint
-world_frame: odom
-map_frame: map
+      odom_frame: odom
+      base_link_frame: base_footprint
+      world_frame: odom
+      map_frame: map
 
-two_d_mode: true
+      two_d_mode: true
 
-#x     , y     , z,
-#roll  , pitch , yaw,
-#vx    , vy    , vz,
-#vroll , vpitch, vyaw,
-#ax    , ay    , az
+      #x     , y     , z,
+      #roll  , pitch , yaw,
+      #vx    , vy    , vz,
+      #vroll , vpitch, vyaw,
+      #ax    , ay    , az
 
-odom0: /odom_raw
-odom0_config: [false, false, false,
-              false, false, false,
-              true, true, false,
-              false, false, true,
-              false, false, false]
+      odom0: /odom_raw
+      odom0_config: [false, false, false,
+                    false, false, false,
+                    true, true, false,
+                    false, false, true,
+                    false, false, false]
 
-odom0_differential: true
-odom0_relative: false
+      odom0_differential: true
+      odom0_relative: false
 
-imu0: /imu/data
+      imu0: /imu/data
 
-# [ X , Y , Z ,
-#  Roll, Pitch, Yaw,
-#  Vx, Vy, Vz,
-#  Vroll, Vpitch, Vyaw,
-#  Ax, Ay, Az ]
-imu0_config: [false, false, false,
-              false, false, true,
-              false, false, false,
-              false, false, true,
-              true, true, false]
+      # [ X , Y , Z ,
+      #  Roll, Pitch, Yaw,
+      #  Vx, Vy, Vz,
+      #  Vroll, Vpitch, Vyaw,
+      #  Ax, Ay, Az ]
+      imu0_config: [false, false, false,
+                    false, false, true,
+                    false, false, false,
+                    false, false, true,
+                    true, true, false]
 
-imu0_differential: true
-imu0_relative: false
+      imu0_differential: true
+      imu0_relative: false
 
