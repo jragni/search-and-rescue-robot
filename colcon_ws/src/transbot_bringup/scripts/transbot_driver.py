@@ -228,15 +228,28 @@ def main(args=None):
     executor = MultiThreadedExecutor()
     executor.add_node(node)
     
-    def signal_handler(signal, frame):
+    def signal_handler(sig, frame):
         node.get_logger().info("Stopping robot...")
         node.stop_robot()
         node.get_logger().info("Shutting down!")
+        executor.shutdown()
         node.destroy_node()
         rclpy.shutdown()
 
-    executor.spin()
+    # Register signal handler before spinning
     signal.signal(signal.SIGINT, signal_handler)
+    
+    try:
+        executor.spin()
+    except KeyboardInterrupt:
+        pass
+    finally:
+        node.get_logger().info("Stopping robot...")
+        node.stop_robot()
+        node.get_logger().info("Shutting down!")
+        executor.shutdown()
+        node.destroy_node()
+        rclpy.shutdown()
 
 
 if __name__ == "__main__":
