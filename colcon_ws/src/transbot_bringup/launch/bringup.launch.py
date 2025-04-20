@@ -118,6 +118,7 @@ def generate_launch_description():
         package='transbot_bringup',
         executable='base_node',
         name='base_node',
+        output="screen",
     )
 
     # robot state estimation

@@ -35,11 +35,6 @@ class BaseNode : public rclcpp::Node {
 
       tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(*this);
 
-      // Add timer (20Hz)
-      timer_ = this->create_wall_timer(
-          std::chrono::milliseconds(50),
-          std::bind(&BaseNode::update_odometry, this));
-
       RCLCPP_INFO(this->get_logger(), "Starting base_node...");
     }
     
@@ -48,9 +43,6 @@ class BaseNode : public rclcpp::Node {
         linear_velocity_x_ = msg->linear.x * linear_scale_;
         linear_velocity_y_ = msg->linear.y * linear_scale_;
         angular_velocity_z_ = msg->angular.z;
-      }
-
-      void update_odometry() {
         rclcpp::Time current_time = this->now();
         vel_dt_ = (current_time - last_vel_time_).seconds();
         
@@ -144,8 +136,6 @@ class BaseNode : public rclcpp::Node {
       float heading_;
 
       float linear_scale_;
-
-      rclcpp::TimerBase::SharedPtr timer_;
 };
 
 int main(int argc, char** argv) {
