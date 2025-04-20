@@ -41,9 +41,9 @@ def generate_launch_description():
         'gain': 0.1,
         'constant_dt': 0.0,
         'fixed_frame': 'base_link',
-        'use_mag': 'false',
-        'publish_tf': 'false',
-        'use_magnetic_field_msg': 'false',
+        'use_mag': False,
+        'publish_tf': False,
+        'use_magnetic_field_msg': False,
         'world_frame': 'enu',
         'orientation_stddev': 0.05,
     }
