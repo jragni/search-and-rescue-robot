@@ -1,12 +1,17 @@
 ### ekf config file ###
 ekf_filter_node:
     ros__parameters:
-      frequency: 30.0
+      use_sim_time: false
+      frequency: 15.0
+      sensor_timeout: 0.1
+
+      print_diagnostics: true # --- TODO: FOR testing
 
       odom_frame: odom
       base_link_frame: base_footprint
       world_frame: odom
       map_frame: map
+
 
       two_d_mode: true
 
@@ -23,6 +28,8 @@ ekf_filter_node:
                     false, false, true,
                     false, false, false]
 
+      odom0_queue_size=10
+
       odom0_differential: true
       odom0_relative: false
 
@@ -36,9 +43,12 @@ ekf_filter_node:
       imu0_config: [false, false, false,
                     false, false, true,
                     false, false, false,
-                    true, true, true,
-                    true, true, true]
+                    false, false, true,
+                    true, true, false]
 
       imu0_differential: true
       imu0_relative: false
-
+      imu0_queue_size: 10
+      imu0_pose_rejection_threshold: 20.0
+      imu0_twist_rejection_threshold: 1.542
+      imu0_linear_acceleration_rejection_threshold: 10.0
