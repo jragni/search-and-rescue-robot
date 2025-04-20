@@ -30,7 +30,7 @@ class BaseNode : public rclcpp::Node {
         std::bind(&BaseNode::odom_callback, this, std::placeholders::_1)
       );
 
-      this->declare_parameter("linear_scale", 0.0);
+      this->declare_parameter("linear_scale", 1.0);
       linear_scale_ = this->get_parameter("linear_scale").as_double();
 
       tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(*this);
