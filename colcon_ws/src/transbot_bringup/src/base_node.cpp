@@ -47,8 +47,6 @@ class BaseNode : public rclcpp::Node {
         vel_dt_ = (current_time - last_vel_time_).seconds();
         
         if (vel_dt_ > 0.0) {
-            // Calculate and publish odometry here
-            // Caclulate odom from the twist message
             double delta_heading = angular_velocity_z_ * vel_dt_; // [rad]
             double delta_x = (linear_velocity_x_ * cos(heading_) - linear_velocity_y_ * sin(heading_)) * vel_dt_; // [m]
             double delta_y = (linear_velocity_x_ * sin(heading_) + linear_velocity_y_ * cos(heading_)) * vel_dt_; // [m]
