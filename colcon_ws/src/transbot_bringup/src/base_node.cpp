@@ -3,7 +3,7 @@
 #include "tf2_ros/transform_broadcaster.h"
 
 #include "geometry_msgs/msg/quaternion.hpp"
-#include "geometry_msgs/msg/twist.hpp"
+#include "geometry_msgs/msg/twist_stamped.hpp"
 #include "geometry_msgs/msg/transform_stamped.hpp"
 #include "nav_msgs/msg/odometry.hpp"
 
@@ -24,14 +24,12 @@ class BaseNode : public rclcpp::Node {
       heading_(0.0) {
 
       odom_publisher_ = this->create_publisher<nav_msgs::msg::Odometry>("odom_raw", 50);
-      velocity_subscriber_ = this->create_subscription<geometry_msgs::msg::Twist>(
+      velocity_subscriber_ = this->create_subscription<geometry_msgs::msg::TwistStamped>(
         "/transbot/get_vel",
         50,
         std::bind(&BaseNode::odom_callback, this, std::placeholders::_1)
       );
 
-      this->declare_parameter("linear_scale", 1.0);
-      linear_scale_ = this->get_parameter("linear_scale").as_double();
 
       tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(*this);
 
@@ -39,10 +37,10 @@ class BaseNode : public rclcpp::Node {
     }
     
     private:
-      void odom_callback(const geometry_msgs::msg::Twist::SharedPtr msg) {
-        linear_velocity_x_ = msg->linear.x * linear_scale_;
+      void odom_callback(const geometry_msgs::msg::TwistStamped::SharedPtr msg) {
+        linear_velocity_x_ = msg->twist.linear.x;
         linear_velocity_y_ = 0.0;
-        angular_velocity_z_ = msg->angular.z;
+        angular_velocity_z_ = msg->twist.angular.z;
         rclcpp::Time current_time = msg->header.stamp;
         vel_dt_ = (current_time - last_vel_time_).seconds();
         
@@ -59,11 +57,8 @@ class BaseNode : public rclcpp::Node {
             tf2::Quaternion odom_quat;
             odom_quat.setRPY(0, 0, heading_);
 
+            // Convert quaternion directly without redundant assignments
             geometry_msgs::msg::Quaternion msg_quat = tf2::toMsg(odom_quat);
-            msg_quat.x = odom_quat.x();
-            msg_quat.y = odom_quat.y();
-            msg_quat.z = odom_quat.z();
-            msg_quat.w = odom_quat.w();
 
             nav_msgs::msg::Odometry odom;
             odom.header.stamp = current_time;
@@ -98,7 +93,7 @@ class BaseNode : public rclcpp::Node {
 
             // TODO: add 3d translation in a later version
 
-            // Handle transform publsiher
+            // Handle transform publisher
             geometry_msgs::msg::TransformStamped t;
 
             t.header.stamp = current_time;
@@ -119,7 +114,7 @@ class BaseNode : public rclcpp::Node {
       }
 
       rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr odom_publisher_;
-      rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr velocity_subscriber_;
+      rclcpp::Subscription<geometry_msgs::msg::TwistStamped>::SharedPtr velocity_subscriber_;
       std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
 
       float linear_velocity_x_;
@@ -133,7 +128,6 @@ class BaseNode : public rclcpp::Node {
       float y_pos_;
       float heading_;
 
-      float linear_scale_;
 };
 
 int main(int argc, char** argv) {
