@@ -10,7 +10,7 @@ from rclpy.callback_groups import ReentrantCallbackGroup
 from transbot_msgs.msg import *
 from transbot_msgs.srv import *
 
-from geometry_msgs.msg import Twist
+from geometry_msgs.msg import Twist, TwistStamped
 from sensor_msgs.msg import Imu
 from std_msgs.msg import Header, Int32
 
@@ -83,7 +83,7 @@ class TransbotDriver(Node):
         )
 
         self.velocity_pub_ = self.create_publisher(
-            Twist,
+            TwistStamped,
             '/transbot/get_vel',
             10
         )
@@ -197,11 +197,20 @@ class TransbotDriver(Node):
     def velocity_callback(self):
         """Handle getting velocity data from API."""
         try:
-            vel_msg = Twist()
+            vel_msg = TwistStamped()
+            vel_msg.header = Header()
+
+            vel_msg.header.frame_id = "base_footprint"
+            vel_msg.header.stamp = self.get_clock().now().to_msg()
+          
+
             linear_velocity, angular_velocity = self.bot.get_motion_data()
-            vel_msg.linear.x = float(linear_velocity)
-            vel_msg.angular.z = float(angular_velocity)
+            vel_msg.twist.linear.x = float(linear_velocity)
+            vel_msg.twist.angular.z = float(angular_velocity)
+
+
             self.velocity_pub_.publish(vel_msg)
+
         except Exception as e:
             self.get_logger().error(f"Error getting motion data: {e}")
 
@@ -217,8 +226,8 @@ class TransbotDriver(Node):
             self.get_logger().error(f"Error getting battery data: {e}")
     
     def stop_robot(self):
-        stop_msg = Twist()
-        self.velocity_pub_.publish(stop_msg)
+        """Direct hardware command"""
+        self.bot.set_car_motion(0.0, 0.0)
 
 
 def main(args=None):
