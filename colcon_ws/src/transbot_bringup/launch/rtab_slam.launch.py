@@ -30,7 +30,7 @@ def generate_launch_description():
 
     rtab_parameters={
         'queue_size': 10,
-        'database_path': LaunchConfiguration('database_path'),
+        #'database_path': LaunchConfiguration('database_path'),
         'frame_id': 'base_footprint',
         'map_frame_id': 'map',
         'odom_frame_id': 'odom',
@@ -38,7 +38,7 @@ def generate_launch_description():
         'odom_tf_angular_variance': 0.001,
         'subscribe_depth': True,
         'subscribe_scan': True,
-        'wait_for_transform_duration': LaunchConfiguration('wait_for_transform'),
+        #'wait_for_transform_duration': LaunchConfiguration('wait_for_transform'),
         'map_negative_poses_ignored': True,
         'use_action_for_goal': True,
         # RTAB-Map specific parameters
@@ -63,7 +63,7 @@ def generate_launch_description():
         'Reg/Strategy': '1',
         'Reg/Force3DoF': 'true',
         'GridGlobal/MinSize': '20',
-        'Mem/IncrementalMemory': LaunchConfiguration('localization'),
+        #'Mem/IncrementalMemory': LaunchConfiguration('localization'),
     }
 
     remappings=[
