@@ -40,7 +40,7 @@ def generate_launch_description():
     imu_filter_params = {
         'gain': 0.05,
         'constant_dt': 0.0,
-        'fixed_frame': 'base_link',
+        'fixed_frame': 'odom',
         'use_mag': False,
         'publish_tf': False,
         'use_magnetic_field_msg': False,
