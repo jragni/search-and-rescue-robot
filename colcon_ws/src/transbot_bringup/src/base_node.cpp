@@ -41,7 +41,7 @@ class BaseNode : public rclcpp::Node {
     private:
       void odom_callback(const geometry_msgs::msg::Twist::SharedPtr msg) {
         linear_velocity_x_ = msg->linear.x * linear_scale_;
-        linear_velocity_y_ = msg->linear.y * linear_scale_;
+        linear_velocity_y_ = 0.0;
         angular_velocity_z_ = msg->angular.z;
         rclcpp::Time current_time = this->now();
         vel_dt_ = (current_time - last_vel_time_).seconds();

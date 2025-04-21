@@ -38,14 +38,14 @@ def generate_launch_description():
 
     # imu filter node
     imu_filter_params = {
-        'gain': 0.1,
+        'gain': 0.05,
         'constant_dt': 0.0,
         'fixed_frame': 'base_link',
         'use_mag': False,
         'publish_tf': False,
         'use_magnetic_field_msg': False,
         'world_frame': 'enu',
-        'orientation_stddev': 0.05,
+        'orientation_stddev': 0.1,
     }
 
     imu_filter_node = Node(

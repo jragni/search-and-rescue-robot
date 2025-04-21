@@ -41,12 +41,12 @@ ekf_filter_node:
       #  Vroll, Vpitch, Vyaw,
       #  Ax, Ay, Az ]
       imu0_config: [false, false, false,
-                    true, true, true,
+                    false, false, true,
                     false, false, false,
-                    false, false, false,
+                    false, false, true,
                     false, false, false]
 
-      imu0_differential: false
+      imu0_differential: true
       imu0_relative: false
       imu0_queue_size: 10
       imu0_pose_rejection_threshold: 20.0
