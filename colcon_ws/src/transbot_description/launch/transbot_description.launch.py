@@ -34,12 +34,6 @@ def generate_launch_description():
         parameters=[params]
     )
 
-    tf2_params = Node(
-        package='tf2_ros',
-        executable='parameter_bridge',
-        parameters=[{'buffer_timeout': 30.0}]
-    )
-
     return LaunchDescription([
         DeclareLaunchArgument(
             'use_sim_time',
@@ -48,5 +42,4 @@ def generate_launch_description():
         ),
         joint_state_publisher_node,
         node_robot_state_publisher_node,
-        tf2_params,
     ])
