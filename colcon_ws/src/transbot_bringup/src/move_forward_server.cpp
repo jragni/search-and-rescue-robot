@@ -35,6 +35,9 @@ class MoveForwardServer : public rclcpp::Node {
         std::this_thread::sleep_for(1000ms);
       }
 
+      auto stop_msg = geometry_msgs::msg::Twist();
+      pub_->publish(stop_msg);
+
       response->success = true;
     }
 };
