@@ -39,8 +39,8 @@ include_directories(include)
 add_executable(base_node src/base_node.cpp)
 ament_target_dependencies(base_node rclcpp nav_msgs geometry_msgs tf2 tf2_geometry_msgs)
 
-# Move forward service
-add_executable(move_forward_srv_server src/move_forward_server.cpp)
+# Move service
+add_executable(move_srv_server src/move_server.cpp)
 ament_target_dependencies(move_forward_srv_server rclcpp geometry_msgs transbot_msgs)
 
 install(TARGETS

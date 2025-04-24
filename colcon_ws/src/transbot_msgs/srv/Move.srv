@@ -1,4 +1,5 @@
 float32 velocity  # [m/s]
 float32 time      # [secs] 
+string direction  # "linear" or "angular
 ---
 bool success
