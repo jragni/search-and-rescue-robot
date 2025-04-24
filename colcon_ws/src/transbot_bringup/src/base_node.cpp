@@ -91,8 +91,6 @@ class BaseNode : public rclcpp::Node {
 
             odom_publisher_->publish(odom);
 
-            // TODO: add 3d translation in a later version
-
             // Handle transform publisher
             geometry_msgs::msg::TransformStamped t;
 
