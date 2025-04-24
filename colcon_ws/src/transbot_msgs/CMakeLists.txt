@@ -29,6 +29,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/Position.msg"
   "msg/PWMServo.msg"
   # srv
+  "srv/MoveForward.srv"
   "srv/Buzzer.srv"
   "srv/CamDevice.srv"
   "srv/Headlight.srv"

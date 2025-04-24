@@ -1,0 +1,4 @@
+float32 velocity  # [m/s]
+float32 time      # [secs] 
+---
+bool success
