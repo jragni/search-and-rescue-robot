@@ -41,11 +41,11 @@ ament_target_dependencies(base_node rclcpp nav_msgs geometry_msgs tf2 tf2_geomet
 
 # Move service
 add_executable(move_srv_server src/move_server.cpp)
-ament_target_dependencies(move_forward_srv_server rclcpp geometry_msgs transbot_msgs)
+ament_target_dependencies(move_srv_server rclcpp geometry_msgs transbot_msgs)
 
 install(TARGETS
   base_node
-  move_forward_srv_server
+  move_srv_server
   DESTINATION lib/${PROJECT_NAME}
 )
 
