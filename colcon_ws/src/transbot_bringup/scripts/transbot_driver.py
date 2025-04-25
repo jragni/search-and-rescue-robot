@@ -146,7 +146,7 @@ class TransbotDriver(Node):
             angular_velocity = self.angular_min
 
         self.get_logger().info(f"cmd_vel: {linear_velocity}, cmd_ang: {angular_velocity}")
-        self.bot.set_car_motion(linear_velocity, 1.15 * angular_velocity)
+        self.bot.set_car_motion(linear_velocity, 1.13 * angular_velocity)
 
 
     def pwm_servo_callback(self, msg):
