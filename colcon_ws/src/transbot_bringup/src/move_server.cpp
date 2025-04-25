@@ -35,10 +35,8 @@ class MoveServer : public rclcpp::Node {
         msg.linear.x = request->velocity;
       }
 
-      for (int i = 0; i < request->time; i++) {
-        pub_->publish(msg);
-        std::this_thread::sleep_for(1000ms);
-      }
+      pub_->publish(msg);
+      std::this_thread::sleep_for(std::chrono::duration(request->time));
 
       auto stop_msg = geometry_msgs::msg::Twist();
       pub_->publish(stop_msg);
