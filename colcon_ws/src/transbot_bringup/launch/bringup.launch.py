@@ -17,6 +17,7 @@ def generate_launch_description():
         'use_sim_time',
         default_value='false',
     )
+    bringup_package_path = get_package_share_directory("transbot_bringup")
 
     # bringup node
     bringup_node = Node(
@@ -118,7 +119,6 @@ def generate_launch_description():
     )
 
     # robot state estimation
-    bringup_package_path = get_package_share_directory("transbot_bringup")
     ekf_params_path = os.path.join(
         bringup_package_path,
         "config",
