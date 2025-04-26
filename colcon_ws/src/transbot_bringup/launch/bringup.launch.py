@@ -42,7 +42,7 @@ def generate_launch_description():
     imu_calibration_node = Node(
         package='imu_calib',
         executable='apply_calib',
-        output="screen",
+        output="screen"
         parameters=[{
             "calib_file": os.path.join(bringup_package_path, 'config')
         }]
