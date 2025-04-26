@@ -1,10 +1,10 @@
 imu_filter_madgwick_node:
   ros__parameters:
-        gain: 0.05,
-        constant_dt: 0.0,
-        fixed_frame: 'odom',
-        use_mag: false,
-        publish_tf: false,
-        use_magnetic_field_msg: false,
-        world_frame: 'enu',
-        orientation_stddev: 0.1,
+        gain: 0.05
+        constant_dt: 0.0
+        fixed_frame: 'odom'
+        use_mag: false
+        publish_tf: false
+        use_magnetic_field_msg: false
+        world_frame: 'enu'
+        orientation_stddev: 0.1
