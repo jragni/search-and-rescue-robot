@@ -44,7 +44,8 @@ def generate_launch_description():
         executable='apply_calib',
         output="screen",
         parameters=[{
-            "calib_file": os.path.join(bringup_package_path, 'config')
+            "calib_file": os.path.join(bringup_package_path, 'config', 'imu_calib.yaml'),
+            "calibrate_gyros": True,
         }]
     )
 
