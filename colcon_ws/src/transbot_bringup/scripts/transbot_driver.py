@@ -184,7 +184,7 @@ class TransbotDriver(Node):
             imu_msg.linear_acceleration.z = float(corrected_az)
             imu_msg.angular_velocity.x = gx
             imu_msg.angular_velocity.y = gy
-            imu_msg.angular_velocity.z = gz + 0.004  # TODO discovered bias update elsewhere
+            imu_msg.angular_velocity.z = gz + 0.0039  # TODO discovered bias update elsewhere
             imu_msg.header = Header()
             imu_msg.header.stamp = self.get_clock().now().to_msg()
             imu_msg.header.frame_id = "imu_link"
