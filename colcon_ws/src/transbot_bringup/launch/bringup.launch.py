@@ -41,7 +41,7 @@ def generate_launch_description():
     imu_filter_params = {
         'gain': 0.05,
         'constant_dt': 0.0,
-        'zeta': -0.04,
+        'zeta': 0.04,
         'fixed_frame': 'odom',
         'use_mag': False,
         'publish_tf': False,
