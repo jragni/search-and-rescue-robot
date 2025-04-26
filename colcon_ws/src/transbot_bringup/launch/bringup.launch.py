@@ -39,6 +39,7 @@ def generate_launch_description():
     # imu filter node
     imu_filter_params = {
         'gain': 0.05,
+        'zeta': 0.03,
         'constant_dt': 0.0,
         'fixed_frame': 'odom',
         'use_mag': False,
