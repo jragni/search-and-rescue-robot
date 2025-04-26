@@ -42,7 +42,6 @@ def generate_launch_description():
     imu_calibration_node = Node(
         package='imu_calib',
         executable='apply_calib',
-        output="screen"
         parameters=[{
             "calib_file": os.path.join(bringup_package_path, 'config')
         }]
@@ -162,7 +161,6 @@ def generate_launch_description():
     return LaunchDescription([
         declare_use_sim_time,
         bringup_node,
-        imu_calibration_node,
         imu_filter_node,
         base_node,
         ekf_node,
