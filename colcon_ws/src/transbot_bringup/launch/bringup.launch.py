@@ -41,7 +41,7 @@ def generate_launch_description():
     imu_filter_params = os.path.join(
         bringup_package_path,
         "config",
-        "ekf_localization.yaml"
+        "imu_params.yaml"
     )
 
 
