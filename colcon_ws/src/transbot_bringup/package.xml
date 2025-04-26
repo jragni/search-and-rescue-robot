@@ -14,7 +14,6 @@
   <depend>rclpy</depend>
   <depend>geometry_msgs</depend>
   <depend>image_transport</depend>
-  <depend>imu_calib</depend>
   <depend>nav_msgs</depend>
   <depend>transbot_msgs</depend>
   <depend>tf2</depend>

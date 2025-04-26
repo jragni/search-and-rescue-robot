@@ -18,8 +18,6 @@ def generate_launch_description():
         default_value='false',
     )
 
-    bringup_package_path = get_package_share_directory("transbot_bringup")
-
     # bringup node
     bringup_node = Node(
         package="transbot_bringup",
@@ -36,15 +34,6 @@ def generate_launch_description():
                 'launch/transbot_description.launch.py'
             )
         )
-    )
-
-    # imu calibration node
-    imu_calibration_node = Node(
-        package='imu_calib',
-        executable='apply_calib',
-        parameters=[{
-            "calib_file": os.path.join(bringup_package_path, 'config')
-        }]
     )
 
     # imu filter node
@@ -133,6 +122,7 @@ def generate_launch_description():
     )
 
     # robot state estimation
+    bringup_package_path = get_package_share_directory("transbot_bringup")
     ekf_params_path = os.path.join(
         bringup_package_path,
         "config",
