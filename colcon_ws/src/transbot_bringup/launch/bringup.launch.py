@@ -91,7 +91,7 @@ def generate_launch_description():
             '--qz', '1',
             '--qw', '0',
             '--frame-id', 'base_link',
-            '--child-frame-id', 'imu_link',
+            '--child-frame-id', 'laser',
         ]
     )
 
