@@ -119,7 +119,7 @@ RUN echo "export ROS_DOMAIN_ID=0" >> ~/.bashrc
 RUN echo "export ROS_LOCALHOST_ONLY=0" >> ~/.bashrc
 # TODO add rmw zenoh setup
 RUN echo "export RMW_IMPLEMENTATION=rmw_zenoh_cpp" >> ~/.bashrc
-RUN echo "server 192.168.1.246 iburst" >> /etc/chrony/chrony.conf
+RUN echo "server 192.168.1.246 iburst" | sudo tee -a /etc/chrony/chrony.conf 
 
 WORKDIR /home/ubuntu
 
