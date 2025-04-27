@@ -70,7 +70,26 @@ def generate_launch_description():
             '--z', '0.02',
             '--qx', '0',
             '--qy', '0',
+            '--qz', '0',
             '--qw', '1',
+            '--frame-id', 'base_link',
+            '--child-frame-id', 'imu_link',
+        ]
+    )
+
+    # static transform
+    laser_static_transform_publisher_node = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name='base_link_to_laser_link',
+        arguments=[
+            '--x', '-0.03',
+            '--y', '0.0',
+            '--z', '0.13',
+            '--qx', '0',
+            '--qy', '0',
+            '--qz', '1',
+            '--qw', '0',
             '--frame-id', 'base_link',
             '--child-frame-id', 'imu_link',
         ]
