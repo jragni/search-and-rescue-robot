@@ -178,6 +178,7 @@ def generate_launch_description():
         description_launch,
         lidar_launch,
         imu_static_transform_publisher_node,
+        laser_static_transform_publisher_node,
         rgbd_camera_static_transform_publisher_node,
         astra_launch,
         transport_launch,
