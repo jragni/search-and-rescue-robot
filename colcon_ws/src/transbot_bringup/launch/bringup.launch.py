@@ -37,6 +37,22 @@ def generate_launch_description():
         )
     )
 
+    # Lidar odometry
+    lidar_odometry_node = Node(
+        package='rf2o_laser_odometry',
+        executable='rf2o_laser_odometry_node',
+        name='rf2o_laser_odometry',
+        output='screen',
+        parameters=[{
+            'laser_scan_topic' : '/scan',
+            'odom_topic' : '/odom_rf2o',
+            'publish_tf' : False,
+            'base_frame_id' : 'base_footprint',
+            'odom_frame_id' : 'odom',
+            'init_pose_from_topic' : '',
+            'freq' : 20.0}],
+    )
+
     # imu filter node
     imu_filter_params = {
         'gain': 0.05,
@@ -177,6 +193,7 @@ def generate_launch_description():
         ekf_node,
         description_launch,
         lidar_launch,
+        lidar_odometry_node,
         imu_static_transform_publisher_node,
         laser_static_transform_publisher_node,
         rgbd_camera_static_transform_publisher_node,
