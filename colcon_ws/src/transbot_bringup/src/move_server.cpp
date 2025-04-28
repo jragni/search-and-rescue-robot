@@ -5,6 +5,14 @@
 
 using namespace std::chrono_literals;
 
+/**
+  * MoveServer
+  * 
+  * Moves robot at velocity [m/s] or [rad/sec] for time [seconds]
+  * in either linear or angular motion.
+  * 
+  * Used previously for tuning odometry
+  */
 class MoveServer : public rclcpp::Node {
   public:
     MoveServer() : Node("move_service_server_node") {
