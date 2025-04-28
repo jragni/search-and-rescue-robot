@@ -45,6 +45,12 @@ Organizations like NASA, SpaceX, and research institutions are actively developi
 
 ### Prerequisites
 
+Ensure your buffers on both the host and the robot are set to the following to visualize the lidar data
+net.core.wmem_max=2147483647
+net.core.wmem_default=2147483647
+net.core.rmem_max=2147483647
+net.core.rmem_default=2147483647
+
 ```bash
 # Install ROS2
 sudo apt install ros-humble-desktop-full
