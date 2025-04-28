@@ -2,39 +2,49 @@
 
 import rclpy
 from rclpy.node import Node
-from rclpy.qos import DurabilityPolicy, QoSProfile
 
 from transbot_msgs.msg import SearchPoseArray
-from transbot_msgs.srv import SearchPose
+from transbot_msgs.srv import GetSearchPoses, SetSearchPose
 
-class SetSearchPose(Node):
-    """Updates search points."""
+class SearchPoseService(Node):
+    """Updates search points.
+
+    Allows users to set search poses and get search poses.
+    
+    """
 
     def __init__(self):
-        super().__init__('set_search_point_srv_server')
+        super().__init__('search_point_srv_server')
 
         self.search_poses_ = []
 
-        self.search_pose_srv_ = self.create_service(
-            SearchPose,
-            'search_poses_service',
-            self.set_search_point_callback
+        self.get_search_pose_srv_ = self.create_service(
+            GetSearchPoses,
+            'get_search_poses_service',
+            self.get_search_poses_callback
         )
 
-        qos_profile = QosProfile(
-            depth=10,
-            durability=DurabilityPolicy(DurabilityPolicy.TRANSIENT_LOCAL)
+        self.set_search_pose_srv_ = self.create_service(
+            SetSearchPose,
+            'set_search_poses_service',
+            self.set_search_pose_callback
         )
+
         self.search_pose_pub_ = self.create_publisher(
            SearchPoseArray,
            'search_poses',
-           qos_profile
+           10,
         )
 
-        self.get_logger().info('Starting set search service...')
+        self.get_logger().info('Starting search service...')
 
 
-    def set_search_point_callback(self, request, response):
+    def get_search_poses_callback(self, request, response):
+        response.search_poses = self.search_poses_
+        return response
+
+
+    def set_search_pose_callback(self, request, response):
         operation_ = request.operation;
         pose_ = request.pose
 
@@ -80,7 +90,7 @@ class SetSearchPose(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    service = SetSearchPose()
+    service = SearchPoseService()
 
     rclpy.spin(service)
     service.destroy_node()

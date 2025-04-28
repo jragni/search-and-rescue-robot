@@ -33,11 +33,12 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/Move.srv"
   "srv/Buzzer.srv"
   "srv/CamDevice.srv"
+  "srv/GetSearchPoses.srv"
   "srv/Headlight.srv"
   "srv/Patrol.srv"
   "srv/RGBLight.srv"
   "srv/RobotArm.srv"
-  "srv/SearchPose.srv"
+  "srv/SetSearchPose.srv"
   DEPENDENCIES std_msgs geometry_msgs
 )
 

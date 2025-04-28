@@ -61,7 +61,7 @@ ament_python_install_package(${PROJECT_NAME})
 # install python executables
 install (PROGRAMS
   scripts/transbot_driver.py
-  scripts/set_search_pose_srv_server.py
+  scripts/search_pose_srv_server.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
