@@ -1,0 +1,5 @@
+string operation                  # 'add' or 'remove'
+geometry_msgs/PoseStamped pose    # point to move to
+---
+string message
+bool success
