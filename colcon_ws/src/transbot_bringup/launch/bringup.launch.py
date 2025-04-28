@@ -147,7 +147,8 @@ def generate_launch_description():
             os.path.join(
                 astra_launch_path,
                 'launch/astro_pro_plus.launch.xml'
-            )
+            ),
+            parameters=[{ "point_cloud_qos": "SENSOR_DATA" }]
         ),
     )
 
