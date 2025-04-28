@@ -30,9 +30,9 @@ global_costmap:
           obstacle_max_range: 2.5
           obstacle_min_range: 0.0
         pointcloud:
-          topic: /camera/depth/points
-          max_obstacle_height: 5.0
-          min_obstacle_height: 0.0
+          topic: /camera/depth/points/transport
+          max_obstacle_height: 2.0
+          min_obstacle_height: 1
           obstacle_max_range: 2.5
           obstacle_min_range: 0.0
           raytrace_max_range: 3.0
@@ -71,6 +71,12 @@ local_costmap:
           clearing: True
           marking: True
           data_type: "LaserScan"
+        pointcloud:
+          topic: /camera/depth/points/transport
+          max_obstacle_height: 2.0
+          clearing: True
+          marking: True
+          data_type: "PointCloud2"
       voxel_layer:
         plugin: "nav2_costmap_2d::VoxelLayer"
         enabled: True
@@ -233,11 +239,11 @@ controller_server:
       required_movement_radius: 0.5
       movement_time_allowance: 10.0
     # Goal checker parameters
-    # precise_goal_checker:
-    #   plugin: "nav2_controller::SimpleGoalChecker"
-    #   xy_goal_tolerance: 0.25
-    #   yaw_goal_tolerance: 0.25
-    #   stateful: True
+    precise_goal_checker:
+      plugin: "nav2_controller::SimpleGoalChecker"
+      xy_goal_tolerance: 0.25
+      yaw_goal_tolerance: 0.25
+      stateful: True
     general_goal_checker:
       stateful: True
       plugin: "nav2_controller::SimpleGoalChecker"
