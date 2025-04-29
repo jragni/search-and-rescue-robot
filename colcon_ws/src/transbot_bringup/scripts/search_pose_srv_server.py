@@ -47,9 +47,9 @@ class SearchPoseService(Node):
     def set_search_pose_callback(self, request, response):
         operation_ = request.operation;
         pose_ = request.pose
-
+        allowed_operations = ['add', 'remove', 'pop', 'priority']
         # check for valid operation
-        if (operation_ not in ['add', 'remove', 'pop']):
+        if (operation_ not in allowed_operations):
             response.success = False
             response.message = "Invalid operation type"
             self.get_logger().warn(response.message)
@@ -57,11 +57,11 @@ class SearchPoseService(Node):
 
         # TODO add a check to return false if pos
         # .    is already added (no stamp comparison)
-        if (operation_ == 'add'):
+        if operation_ == 'add':
             self.search_poses_.append(pose_)
             response.message = f"Adding [{pose_.pose.position.x}, {pose_.pose.position.y}]"
 
-        elif (operation_ == 'pop'):
+        elif operation_ == 'pop':
             if (not self.search_poses_):
                 response.success = False
                 response.message = "Cannot perform 'pop'. Array is empty."
@@ -69,6 +69,9 @@ class SearchPoseService(Node):
             
             self.search_poses_.pop()
             response.message = f"Removed [{pose_.pose.position.x}, {pose_.pose.position.y}]"
+        elif operation_ == 'priority':
+            self.search_poses_ = [pose_, *self.search_poses_]
+            response.message = f"Adding to top of the list: [{pose_.pose.position.x}, {pose_.pose.position.y}]"
 
         else:
             ## remove
