@@ -91,10 +91,9 @@ WORKDIR /
 # TODO add bashrc to source that ws
 WORKDIR /library_ws/src
 RUN git clone https://github.com/Slamtec/sllidar_ros2.git
-#RUN git clone https://github.com/orbbec/OrbbecSDK_ROS2.git
 RUN git clone https://github.com/orbbec/ros2_astra_camera.git
-
 RUN git clone https://github.com/Adlink-ROS/rf2o_laser_odometry.git
+RUN git clone https://github.com/introlab/find-object.git src/find_object_2d
 
 # copy over rules
 #RUN sudo cp OrbbecSDK_ROS2/orbbec_camera/scripts/99-obsensor-libusb.rules \
