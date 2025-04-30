@@ -1,3 +1,6 @@
+#!usr/bin/env python3
+
+import os
 import cv2
 from cv_bridge import CvBridge
 from ultralytics import YOLO
