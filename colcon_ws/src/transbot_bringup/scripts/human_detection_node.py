@@ -37,7 +37,7 @@ class HumanDetectionNode(Node):
             10,
         )
 
-        transbot_bringup_path = get_package_share_directory('transbot')
+        transbot_bringup_path = get_package_share_directory('transbot_bringup')
         model_path = os.path.join(transbot_bringup, 'config', 'yolo11n.pt')
         self.model = YOLO(model_path)
 
