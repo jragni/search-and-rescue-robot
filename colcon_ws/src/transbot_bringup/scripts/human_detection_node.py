@@ -1,4 +1,4 @@
-#!usr/bin/env python3
+#!/usr/bin/env python3
 
 import os
 import cv2
@@ -42,6 +42,7 @@ class HumanDetectionNode(Node):
         self.model = YOLO(model_path)
 
         self.cv_bridge = CvBridge()
+        self.get_logger().info("Staring Human Detection Node...")
 
     def img_sub_callback(self, img_msg):
         img = self.cv_bridge.img_msg_to_cv2(img_msg, 'bgr8')
