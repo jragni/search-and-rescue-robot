@@ -2,6 +2,8 @@ import cv2
 from cv_bridge import CvBridge
 from ultralytics import YOLO
 
+from ament_index_python.packages import get_package_share_directory
+
 import rclpy
 from rclpy.node import Node
 
@@ -32,7 +34,9 @@ class HumanDetectionNode(Node):
             10,
         )
 
-        self.model = YOLO("yolo11n.pt")
+        transbot_bringup_path = get_package_share_directory('transbot')
+        model_path = os.path.join(transbot_bringup, 'config', 'yolo11n.pt')
+        self.model = YOLO(model_path)
 
         self.cv_bridge = CvBridge()
 
