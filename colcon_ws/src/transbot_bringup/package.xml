@@ -16,6 +16,7 @@
   <depend>image_transport</depend>
   <depend>nav_msgs</depend>
   <depend>transbot_msgs</depend>
+  <depend>std_msgs</depend>
   <depend>tf2</depend>
   <depend>robot_localization</depend>
 

@@ -16,6 +16,7 @@ find_package(nav_msgs REQUIRED)
 find_package(astra_camera REQUIRED)
 find_package(robot_localization REQUIRED)
 find_package(sllidar_ros2 REQUIRED)
+find_package(std_msgs REQUIRED)
 find_package(transbot_description REQUIRED)
 find_package(transbot_msgs REQUIRED)
 find_package(tf2 REQUIRED)
@@ -60,8 +61,9 @@ ament_python_install_package(${PROJECT_NAME})
 
 # install python executables
 install (PROGRAMS
-  scripts/transbot_driver.py
+  scripts/human_detection_node.py
   scripts/search_pose_srv_server.py
+  scripts/transbot_driver.py
   DESTINATION lib/${PROJECT_NAME}
 )
 

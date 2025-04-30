@@ -32,7 +32,15 @@ def generate_launch_description():
         launch_arguments={ 'params_file': nav2_config_path }.items()
     )
 
+    # Waypoint listener for searching for humans
+    search_pose_srv_server_node = Node(
+        package="transbot_bringup",
+        executable="search_pose_srv_server.py",
+        output="screen",
+    )
+
     return LaunchDescription([
+        search_pose_srv_server_node,
         slam_toolbox_launch,
         nav2_bringup_launch,
     ])
