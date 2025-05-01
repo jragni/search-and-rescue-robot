@@ -149,7 +149,10 @@ def generate_launch_description():
                 'launch/astro_pro_plus.launch.xml'
             ),
         ),
-        launch_arguments=[('point_cloud_qos', 'SENSOR_DATA')]
+        launch_arguments=[
+          ('point_cloud_qos', 'SENSOR_DATA'),
+          ('depth_registration', 'true'),
+        ]
     )
 
     # base node for odometry
