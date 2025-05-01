@@ -24,6 +24,8 @@ class HumanDetectionNode(Node):
     def __init__(self):
         super().__init__("human_detection_node")
 
+        self.MIN_THRESHOLD_SCORE = 0.74  # lowest score to consider detection
+
         self.img_sub_ = self.create_subscription(
             Image,
             "/camera/color/image_raw/transport",
@@ -52,7 +54,7 @@ class HumanDetectionNode(Node):
         results_list = [
             r
             for r in results.boxes.data.tolist()
-            if (r[5] == 0 and r[4] >= 0.75)
+            if (r[5] == 0 and r[4] >= self.MIN_THRESHOLD_SCORE)
         ]
 
         if not results_list:
