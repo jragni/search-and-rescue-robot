@@ -37,8 +37,8 @@ def generate_launch_description():
 
     human_detection_node = Node(
       package="transbot_bringup",
-      executable="human_detection_node.py"
-      name="human_detection_node"
+      executable="human_detection_node.py",
+      name="human_detection_node",
     )
 
     return LaunchDescription([
