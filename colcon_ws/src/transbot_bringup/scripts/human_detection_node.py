@@ -52,7 +52,7 @@ class HumanDetectionNode(Node):
         results_list = [
             r
             for r in results.boxes.data.tolist()
-            if r[5] == 0
+            if (r[5] == 0 and r[4] >= 0.75)
         ]
 
         if not results_list:
