@@ -35,6 +35,12 @@ class HumanDetectionNode(Node):
 
         self.cv_bridge = CvBridge()
 
+        self.img_pub_ = self.create_publisher(
+            Image,
+            '/camera/color/image_raw/human_detection',
+            10
+        )
+
         self.rgb_sub_ = Subscriber(self, Image, '/camera/color/image_raw/transport')
         self.depth_sub_ = Subscriber(self, Image, '/camera/depth/image_raw')
 
