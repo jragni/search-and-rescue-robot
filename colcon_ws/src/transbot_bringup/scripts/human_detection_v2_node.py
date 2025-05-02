@@ -77,7 +77,7 @@ class HumanDetectionNode(Node):
             x1, y1, x2, y2, score, class_id = result
             x_center = math.floor((x1 + x2) / 2)
             y_center = math.floor((y1 + y2) / 2)
-            distance = depth_image[y_center][x_center]
+            distance = depth_image[y_center][x_center] / 1000
 
             cv2.rectangle(
                 img,
@@ -89,7 +89,7 @@ class HumanDetectionNode(Node):
 
             cv2.putText(
                 img,
-                f"distance:{distance}",
+                f"d: {distance} [m]",
                 (int(x1), int(y2+10)),
                 cv2.FONT_HERSHEY_SIMPLEX,
                 1.5,
