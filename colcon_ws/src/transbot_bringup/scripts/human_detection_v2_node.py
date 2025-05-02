@@ -89,10 +89,20 @@ class HumanDetectionNode(Node):
 
             cv2.putText(
                 img,
-                results.names[int(class_id)].upper() + f": {score:.2f} dist: {distance}",
+                f"distance:{distance}",
+                (int(x1), int(y2+10)),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                1.5,
+                (255, 0, 0),
+                1,
+                cv2.LINE_AA
+            )
+            cv2.putText(
+                img,
+                results.names[int(class_id)].upper() + f": {score:.2f}",
                 (int(x1), int(y1-10)),
                 cv2.FONT_HERSHEY_SIMPLEX,
-                1.3,
+                1.5,
                 (0, 255, 0),
                 1,
                 cv2.LINE_AA
