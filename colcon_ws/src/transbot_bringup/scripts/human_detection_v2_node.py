@@ -10,7 +10,7 @@ from ament_index_python.packages import get_package_share_directory
 import rclpy
 from rclpy.node import Node
 
-from message_filters import Subscriber, TimeSynchronizer
+from message_filters import Subscriber, ApproximateTimeSynchronizer
 from std_msgs.msg import Header
 from sensor_msgs.msg import Image, PointCloud2
 
@@ -37,7 +37,7 @@ class HumanDetectionNode(Node):
         self.depth_sub_ = Subscriber(self, Image, '/camera/depth/image_raw')
 
         queue_size = 10
-        self.sync_ = TimeSynchronizer([ self.rgb_sub_, self.depth_sub_] , queue_size)
+        self.sync_ = ApproximateTimeSynchronizer([ self.rgb_sub_, self.depth_sub_] , queue_size)
         self.sync_.registerCallback(self.synced_callback)
 
         self.get_logger().info("Staring Human Detection Node...")
