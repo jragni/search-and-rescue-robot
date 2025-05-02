@@ -38,7 +38,7 @@ class HumanDetectionNode(Node):
 
         queue_size = 10
         self.sync_ = TimeSynchronizer([ self.rgb_sub_, self.depth_sub_] , queue_size)
-        self.sync.registerCallback(self.synced_callback)
+        self.sync_.registerCallback(self.synced_callback)
 
         self.get_logger().info("Staring Human Detection Node...")
 
