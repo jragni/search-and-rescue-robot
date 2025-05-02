@@ -93,7 +93,7 @@ class HumanDetectionNode(Node):
                 (int(x1), int(y2+10)),
                 cv2.FONT_HERSHEY_SIMPLEX,
                 1.5,
-                (255, 0, 0),
+                (0, 0, 255),
                 1,
                 cv2.LINE_AA
             )
