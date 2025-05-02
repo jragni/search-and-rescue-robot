@@ -58,7 +58,6 @@ class HumanDetectionNode(Node):
     def synced_callback(self, img_msg, depth_img_msg):
         img = self.cv_bridge.imgmsg_to_cv2(img_msg, 'bgr8')
         depth_image = self.cv_bridge.imgmsg_to_cv2(depth_img_msg, 'passthrough')
-        print('here=======')
 
         results = self.model(img)[0]
 
@@ -89,12 +88,12 @@ class HumanDetectionNode(Node):
 
             cv2.putText(
                 img,
-                f"d: {distance} [m]",
+                f"{distance} [m]",
                 (int(x1), int(y2+10)),
                 cv2.FONT_HERSHEY_SIMPLEX,
-                1.5,
+                1.0,
                 (0, 0, 255),
-                1,
+                2,
                 cv2.LINE_AA
             )
             cv2.putText(
@@ -104,10 +103,12 @@ class HumanDetectionNode(Node):
                 cv2.FONT_HERSHEY_SIMPLEX,
                 1.5,
                 (0, 255, 0),
-                1,
+                2,
                 cv2.LINE_AA
             )
+
         annotated_message = self.cv_bridge.cv2_to_imgmsg(img, "bgr8", Header())
+
         annotated_message.header.stamp = self.get_clock().now().to_msg()
         annotated_message.header.frame_id = "camera_link"
 
