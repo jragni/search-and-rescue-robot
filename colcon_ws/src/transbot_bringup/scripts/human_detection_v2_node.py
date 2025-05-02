@@ -2,6 +2,8 @@
 
 import os
 import cv2
+import math
+
 from cv_bridge import CvBridge
 from ultralytics import YOLO
 
@@ -39,7 +41,7 @@ class HumanDetectionNode(Node):
         queue_size = 10
         max_delay = 0.05
         self.sync_ = ApproximateTimeSynchronizer(
-            [ self.rgb_sub_, self.depth_sub_],
+            [self.rgb_sub_, self.depth_sub_],
             queue_size,
             max_delay
         )
@@ -67,8 +69,8 @@ class HumanDetectionNode(Node):
 
         for result in results_list:
             x1, y1, x2, y2, score, class_id = result
-            x_center = (x1 + x2) / 2
-            y_center = (y1 + y2) / 2
+            x_center = math.floor((x1 + x2) / 2)
+            y_center = math.floor(y1 + y2) / 2
             distance = depth_image[y_center][x_center]
 
             cv2.rectangle(
