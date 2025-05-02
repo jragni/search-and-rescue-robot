@@ -37,7 +37,12 @@ class HumanDetectionNode(Node):
         self.depth_sub_ = Subscriber(self, Image, '/camera/depth/image_raw')
 
         queue_size = 10
-        self.sync_ = ApproximateTimeSynchronizer([ self.rgb_sub_, self.depth_sub_] , queue_size)
+        max_delay = 0.05
+        self.sync_ = ApproximateTimeSynchronizer(
+            [ self.rgb_sub_, self.depth_sub_],
+            queue_size,
+            max_delay
+        )
         self.sync_.registerCallback(self.synced_callback)
 
         self.get_logger().info("Staring Human Detection Node...")
