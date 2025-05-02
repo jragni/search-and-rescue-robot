@@ -45,6 +45,7 @@ class HumanDetectionNode(Node):
     def synced_callback(self, img_msg, depth_img_msg):
         img = self.cv_bridge.imgmsg_to_cv2(img_msg, 'bgr8')
         depth_image = self.cv2_to_imgmsg(img_msg, 'passthrough')
+        print('here')
 
         results = self.model(img)[0]
 
