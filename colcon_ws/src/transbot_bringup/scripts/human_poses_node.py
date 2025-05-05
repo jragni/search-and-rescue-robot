@@ -15,7 +15,7 @@ class HumanPosesNode(Node):
 
         self.human_pose_sub_ = self.create_subscription(
             PoseStamped,
-            '/human_detection/pose_stamped',
+            '/human_detection/pose',
             self.human_pose_sub_callback,
             10
         )
