@@ -45,7 +45,7 @@ class SearchPoseService(Node):
 
 
     def set_search_pose_callback(self, request, response):
-        operation_ = request.operation;
+        operation_ = request.operation
         pose_ = request.pose
         allowed_operations = ['add', 'remove', 'pop', 'priority']
         # check for valid operation

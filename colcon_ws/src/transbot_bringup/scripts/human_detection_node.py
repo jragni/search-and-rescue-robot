@@ -74,6 +74,7 @@ class HumanDetectionNode(Node):
         self.get_logger().info("Staring Human Detection Node...")
 
     def synced_callback(self, img_msg, depth_img_msg, camera_info_msg):
+        self.get_logger().info('==========received sync')
         img = self.cv_bridge.imgmsg_to_cv2(img_msg, 'bgr8')
         depth_image = self.cv_bridge.imgmsg_to_cv2(depth_img_msg, 'passthrough')
 
@@ -87,6 +88,8 @@ class HumanDetectionNode(Node):
             for r in results.boxes.data.tolist()
             if (r[5] == 0 and r[4] >= self.MIN_THRESHOLD_SCORE)
         ]
+
+        self.get_logger().info(f'results {results_list}')
 
         if not results_list:
             self.img_pub_.publish(img_msg)
@@ -117,6 +120,7 @@ class HumanDetectionNode(Node):
                 2,
                 cv2.LINE_AA
             )
+
             cv2.putText(
                 img,
                 results.names[int(class_id)].upper() + f": {score:.2f}",
