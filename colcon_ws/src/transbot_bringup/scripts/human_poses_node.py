@@ -27,10 +27,16 @@ class HumanPosesNode(Node):
             1,
         )
 
-        self.create_timer()
+        self.create_timer(0.01 self.human_locations_pub_callback)
+
+
+    def human_locations_pub_callback(self):
+        human_locations_msg = HumanLocations()
+        human_locations_msg.locations = self.human_locations
+        human_locations_pub.pulbish(human_locations_msg)
+
 
     def human_pose_sub_callback(self, msg):
-        
         x = msg.pose.position.x
         y = msg.pose.position.y
         z = msg.pose.position.z
