@@ -140,7 +140,7 @@ class HumanDetectionNode(Node):
 
             point_in_camera_frame = np.array(ray) * scaling_factor
             x, y, z = point_in_camera_frame
-            self.get_logger().info('x, y, z: ', x, y, z)
+            self.get_logger().info(f'x: {x}, y: {y}, z: {z}')
 
             cv2.putText(
                 img,
