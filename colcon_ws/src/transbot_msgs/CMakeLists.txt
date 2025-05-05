@@ -18,6 +18,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/Adjust.msg"
   "msg/Arm.msg"
   "msg/Battery.msg"
+  "msg/HumanLocations.msg"
   "msg/Joint.msg"
   "msg/JoyState.msg"
   "msg/PointArray.msg"
