@@ -120,7 +120,7 @@ class HumanDetectionNode(Node):
             cv2.putText(
                 img,
                 results.names[int(class_id)].upper() + f": {score:.2f}",
-                (int(x1), int(y1-10)),
+                (int(x1), int(y1-15)),
                 cv2.FONT_HERSHEY_SIMPLEX,
                 1.5,
                 (0, 255, 0),
