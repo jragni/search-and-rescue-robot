@@ -7,6 +7,7 @@ from rclpy.node import Node
 from transbot_msgs.msg import HumanLocations
 from geometry_msgs.msg import PoseStamped
 
+
 class HumanPosesNode(Node):
     def __init__(self):
         super().__init__("human_pose_client_node")
@@ -42,8 +43,6 @@ class HumanPosesNode(Node):
         z = msg.pose.position.z
 
         # transform to odom or map frame
-        self.get_logger().info(f'===================')
-        self.get_logger().info(f'msg: {msg}')
         # check if poses in within distance
         for location in self.human_locations:
             location_x = location.pose.position.x
@@ -55,7 +54,6 @@ class HumanPosesNode(Node):
             delta_z = location_z - z
 
             point_to_location_distance = math.sqrt(delta_x**2 + delta_y**2 + delta_z**2)
-            self.get_logger().info(f'point_dist: {point_to_location_distance}')
 
             if (point_to_location_distance <= self.LOCATION_TOLERANCE):
                 return
