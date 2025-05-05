@@ -99,6 +99,29 @@ class HumanDetectionNode(Node):
             y_center = math.floor((y1 + y2) / 2)
             distance = depth_image[y_center][x_center] / 1000
 
+            
+            # Get ray vector for centroid coordinate
+            ray = self.pinhole_model.projectPixelTo3dRay((x_center, y_center))
+            rx, ry, rz = ray
+
+            if rz <= 0 or distance <= 0:
+                continue
+            
+            scaling_factor = distance / rz
+
+            point_in_camera_frame = np.array(ray) * scaling_factor
+            x, y, z = point_in_camera_frame
+
+            human_pose_msg = PoseStamped()
+            human_pose_msg.header = Header()
+            human_pose_msg.header.stamp = self.get_clock().now().to_msg()
+            human_pose_msg.header.frame_id = "camera_link"
+            human_pose_msg.pose.position.x = x
+            human_pose_msg.pose.position.y = y
+            human_pose_msg.pose.position.z = z
+
+            self.human_pose_pub_.publish(human_pose_msg)
+
             # set bounding boxes on image
             cv2.rectangle(
                 img,
@@ -129,18 +152,6 @@ class HumanDetectionNode(Node):
                 2,
                 cv2.LINE_AA
             )
-            
-            # Get ray vector for centroid coordinate
-            ray = self.pinhole_model.projectPixelTo3dRay((x_center, y_center))
-            rx, ry, rz = ray
-
-            # if rz <= 0 or distance <= 0:
-            #     continue
-            
-            scaling_factor = distance / rz
-
-            point_in_camera_frame = np.array(ray) * scaling_factor
-            x, y, z = point_in_camera_frame
 
             cv2.putText(
                 img,
