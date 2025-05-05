@@ -42,7 +42,7 @@ class HumanPosesNode(Node):
         z = msg.pose.position.z
 
         # transform to odom or map frame
-        self.(f'msg: {msg}')
+        self.get_logger().info(f'msg: {msg}')
         # check if poses in within distance
         for location in self.human_locations:
             location_x = location.pose.position.x
