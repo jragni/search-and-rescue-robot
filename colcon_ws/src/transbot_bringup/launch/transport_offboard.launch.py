@@ -44,7 +44,7 @@ def generate_launch_description():
     )
 
     human_pose_srv_client_node = Node(
-        pacakge="transbot_bringup",
+        package="transbot_bringup",
         executable="human_pose_srv_client.py",
         name="human_detection_pose_srv_client",
         output="screen"
