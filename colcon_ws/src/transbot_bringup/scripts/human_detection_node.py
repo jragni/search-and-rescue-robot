@@ -133,8 +133,8 @@ class HumanDetectionNode(Node):
             rx, ry, rz = ray
             self.get_logger().info(f'rx:{rx}, ry: {ry}, rz: {rz} ')
 
-            if rz <= 0 or distance <= 0:
-                continue
+            # if rz <= 0 or distance <= 0:
+            #     continue
             
             scaling_factor = distance / rz
 
