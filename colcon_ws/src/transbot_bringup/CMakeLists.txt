@@ -12,6 +12,7 @@ find_package(astra_camera REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclpy REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(image_geometry REQUIRED)
 find_package(image_transport REQUIRED)
 find_package(message_filters REQUIRED)
 find_package(nav_msgs REQUIRED)
@@ -63,7 +64,6 @@ ament_python_install_package(${PROJECT_NAME})
 # install python executables
 install (PROGRAMS
   scripts/human_detection_node.py
-  scripts/human_detection_v2_node.py
   scripts/search_pose_srv_server.py
   scripts/transbot_driver.py
   DESTINATION lib/${PROJECT_NAME}

@@ -13,6 +13,7 @@
   <depend>rclcpp</depend>
   <depend>rclpy</depend>
   <depend>geometry_msgs</depend>
+  <depend>image_geometry</depend>
   <depend>image_transport</depend>
   <depend>nav_msgs</depend>
   <depend>transbot_msgs</depend>
