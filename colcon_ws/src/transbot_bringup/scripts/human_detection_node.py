@@ -148,7 +148,7 @@ class HumanDetectionNode(Node):
 
             cv2.putText(
                 img,
-                f"{x}, {y}, {z}",
+                f"{x:.3f}, {y:.3f}, {z:.3f}",
                 (int(x_center), int(y_center)),
                 cv2.FONT_HERSHEY_SIMPLEX,
                 1.0,
