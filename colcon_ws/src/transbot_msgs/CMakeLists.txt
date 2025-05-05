@@ -20,7 +20,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/Battery.msg"
   "msg/Edition.msg"
   "msg/General.msg"
-  "msg/HumanPoses.msg"
+  "msg/HumanPosesArray.msg"
   "msg/ImageMsg.msg"
   "msg/Joint.msg"
   "msg/LaserAvoid.msg"
