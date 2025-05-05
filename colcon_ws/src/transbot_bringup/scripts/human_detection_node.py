@@ -74,7 +74,6 @@ class HumanDetectionNode(Node):
         self.get_logger().info("Staring Human Detection Node...")
 
     def synced_callback(self, img_msg, depth_img_msg, camera_info_msg):
-        self.get_logger().info('==========received sync')
         img = self.cv_bridge.imgmsg_to_cv2(img_msg, 'bgr8')
         depth_image = self.cv_bridge.imgmsg_to_cv2(depth_img_msg, 'passthrough')
 
@@ -89,7 +88,6 @@ class HumanDetectionNode(Node):
             if (r[5] == 0 and r[4] >= self.MIN_THRESHOLD_SCORE)
         ]
 
-        self.get_logger().info(f'results {results_list}')
 
         if not results_list:
             self.img_pub_.publish(img_msg)
@@ -135,7 +133,6 @@ class HumanDetectionNode(Node):
             # Get ray vector for centroid coordinate
             ray = self.pinhole_model.projectPixelTo3dRay((x_center, y_center))
             rx, ry, rz = ray
-            self.get_logger().info(f'rx:{rx}, ry: {ry}, rz: {rz} ')
 
             # if rz <= 0 or distance <= 0:
             #     continue
@@ -144,7 +141,6 @@ class HumanDetectionNode(Node):
 
             point_in_camera_frame = np.array(ray) * scaling_factor
             x, y, z = point_in_camera_frame
-            self.get_logger().info(f'x: {x}, y: {y}, z: {z}')
 
             cv2.putText(
                 img,
