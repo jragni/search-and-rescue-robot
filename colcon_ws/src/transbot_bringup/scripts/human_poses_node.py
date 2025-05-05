@@ -39,9 +39,9 @@ class HumanPosesNode(Node):
         
         # check if poses in within distance
         for location in self.human_locations:
-            location_x = location.pose position.x
-            location_y = location.pose position.y
-            location_z = location.pose position.z
+            location_x = location.pose.position.x
+            location_y = location.pose.position.y
+            location_z = location.pose.position.z
 
             delta_x = location_x - x
             delta_y = location_y - y
