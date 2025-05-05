@@ -10,7 +10,8 @@ class HumanPoseClient(Node):
         self.human_pose_sub_ = self.create_subscription(
             PoseStamped,
             '/human_detection/pose_stamped',
-            self.human_pose_sub_callback
+            self.human_pose_sub_callback,
+            10
         )
 
     def human_pose_sub_callback(self, msg):
