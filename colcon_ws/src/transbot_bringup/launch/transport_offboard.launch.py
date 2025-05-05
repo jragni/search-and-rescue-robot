@@ -54,5 +54,5 @@ def generate_launch_description():
         rgb_image_transport_node,
         point_cloud_transport_launch,
         human_detection_node,
-        human_pose_srv_client,
+        human_pose_srv_client_node,
     ])
