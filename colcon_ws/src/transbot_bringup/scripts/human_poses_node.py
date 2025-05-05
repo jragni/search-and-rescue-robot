@@ -27,7 +27,7 @@ class HumanPosesNode(Node):
             1,
         )
 
-        self.create_timer(0.01 self.human_locations_pub_callback)
+        self.create_timer(0.01, self.human_locations_pub_callback)
 
 
     def human_locations_pub_callback(self):
