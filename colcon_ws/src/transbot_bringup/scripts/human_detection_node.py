@@ -131,6 +131,7 @@ class HumanDetectionNode(Node):
             # Get ray vector for centroid coordinate
             ray = self.pinhole_model.projectPixelTo3dRay((x_center, y_center))
             rx, ry, rz = ray
+            print(f'rx:{rx}, ry: {ry}, rz: {rz} ')
 
             if rz <= 0 or distance <= 0:
                 continue
@@ -139,7 +140,7 @@ class HumanDetectionNode(Node):
 
             point_in_camera_frame = np.array(ray) * scaling_factor
             x, y, z = point_in_camera_frame
-            print(x, y, z)
+            print('x, y, z: ', x, y, z)
 
             cv2.putText(
                 img,
