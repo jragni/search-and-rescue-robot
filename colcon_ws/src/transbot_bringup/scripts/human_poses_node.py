@@ -21,7 +21,7 @@ class HumanPosesNode(Node):
         )
         self.human_locations = []
 
-        self.human_locations_pub = self.create_publisher(
+        self.human_locations_pub_ = self.create_publisher(
             HumanLocations,
             '/human_detection/locations',
             1,
@@ -33,7 +33,7 @@ class HumanPosesNode(Node):
     def human_locations_pub_callback(self):
         human_locations_msg = HumanLocations()
         human_locations_msg.locations = self.human_locations
-        human_locations_pub.pulbish(human_locations_msg)
+        self.human_locations_pub_.publish(human_locations_msg)
 
 
     def human_pose_sub_callback(self, msg):
@@ -55,7 +55,7 @@ class HumanPosesNode(Node):
 
             point_to_location_distance = math.sqrt(delta_x**2 + delta_y**2 + delta_z**2)
 
-            if (point_to_location_distance > self.LOCATION_TOLERANCE):
+            if (point_to_location_distance < self.LOCATION_TOLERANCE):
                 self.human_locations.append(msg)
             
     
