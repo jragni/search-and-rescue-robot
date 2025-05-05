@@ -54,6 +54,7 @@ class HumanPosesNode(Node):
             delta_z = location_z - z
 
             point_to_location_distance = math.sqrt(delta_x**2 + delta_y**2 + delta_z**2)
+            self.get_logger().info(f'point_dist: {point_to_location_distance}')
 
             if (point_to_location_distance > self.LOCATION_TOLERANCE):
                 self.human_locations.append(msg)
