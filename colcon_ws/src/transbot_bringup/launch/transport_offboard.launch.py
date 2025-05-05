@@ -43,10 +43,10 @@ def generate_launch_description():
         output="screen"
     )
 
-    human_pose_srv_client_node = Node(
+    human_poses_node = Node(
         package="transbot_bringup",
-        executable="human_pose_srv_client.py",
-        name="human_detection_pose_srv_client",
+        executable="human_poses_node.py",
+        name="human_poses_node",
         output="screen"
     )
 
