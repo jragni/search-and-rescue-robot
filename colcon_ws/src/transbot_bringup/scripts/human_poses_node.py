@@ -42,6 +42,7 @@ class HumanPosesNode(Node):
         z = msg.pose.position.z
 
         # transform to odom or map frame
+        self.get_logger().info(f'===================')
         self.get_logger().info(f'msg: {msg}')
         # check if poses in within distance
         for location in self.human_locations:
@@ -56,9 +57,10 @@ class HumanPosesNode(Node):
             point_to_location_distance = math.sqrt(delta_x**2 + delta_y**2 + delta_z**2)
             self.get_logger().info(f'point_dist: {point_to_location_distance}')
 
-            if (point_to_location_distance > self.LOCATION_TOLERANCE):
-                self.human_locations.append(msg)
+            if (point_to_location_distance <= self.LOCATION_TOLERANCE):
+                return
             
+        self.human_locations.append(msg)
     
 def main(args=None):
     rclpy.init(args=args)
