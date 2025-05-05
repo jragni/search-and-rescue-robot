@@ -27,7 +27,7 @@ class HumanPosesNode(Node):
             1,
         )
 
-        self.create_timer(0.01, self.human_locations_pub_callback)
+        self.create_timer(0.1, self.human_locations_pub_callback)
 
 
     def human_locations_pub_callback(self):
@@ -42,7 +42,7 @@ class HumanPosesNode(Node):
         z = msg.pose.position.z
 
         # transform to odom or map frame
-        print(f'msg: {msg}')
+        self.(f'msg: {msg}')
         # check if poses in within distance
         for location in self.human_locations:
             location_x = location.pose.position.x
@@ -55,7 +55,7 @@ class HumanPosesNode(Node):
 
             point_to_location_distance = math.sqrt(delta_x**2 + delta_y**2 + delta_z**2)
 
-            if (point_to_location_distance < self.LOCATION_TOLERANCE):
+            if (point_to_location_distance > self.LOCATION_TOLERANCE):
                 self.human_locations.append(msg)
             
     
