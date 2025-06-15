@@ -96,7 +96,7 @@ def get_approach_pose(victim_pose_tuple, robot_transform):
     approach_y = victim_y - (direction_y * 0.5)
     
     # Calculate yaw angle to face victim
-    yaw = math.atan2(direction_y, direction_x)
+    yaw = atan2(direction_y, direction_x)
     
     # Convert yaw to quaternion
     qx = 0.0

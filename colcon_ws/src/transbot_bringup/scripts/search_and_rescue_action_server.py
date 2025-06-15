@@ -27,7 +27,9 @@ class SearchAndRescueActionServer(Node):
         super().__init__('search_and_rescue_action_server')
 
         self.human_location_distance_tolerance = 0.15
+        self.safezone_radius = 1.0
         self.current_task = MissionTask.NONE
+
         self.human_poses = {} # Set of human poses in tuple form
         self.visited_human_poses = {}
         self.search_poses = []  # list of PoseStamped
@@ -68,7 +70,9 @@ class SearchAndRescueActionServer(Node):
             # Transform the pose from camera_link to map frame
             transformed_pose = self.tf_buffer.transform(msg, "map")
             human_pose_tuple = pose_to_tuple(transformed_pose)
-
+            
+            hx, hy, *_ = human_pose_tuple
+            is_within_safe_zone = abs(hx) <= self.safezone_radius and abs(hy) <= self.safezone_radius
             is_not_searching = self.current_task != [MissionTask.SEARCHING]
             is_pose_included = human_pose_tuple in self.human_poses
             is_pose_visited = human_pose_tuple in self.visited_human_poses
@@ -85,6 +89,7 @@ class SearchAndRescueActionServer(Node):
 
             if (
                 is_not_searching
+                or is_within_safe_zone
                 or is_pose_included
                 or is_pose_visited
                 or is_pose_within_tolerance
@@ -157,6 +162,9 @@ class SearchAndRescueActionServer(Node):
 
                 while not self.nav_.isTaskComplete():
                     self.get_logger.info("Returning to base...", once=True)
+
+                # TODO add release here
+                self.get_logger.info("Releasing victim")
 
 
 def main(args=None):
