@@ -64,8 +64,7 @@ ament_python_install_package(${PROJECT_NAME})
 # install python executables
 install (PROGRAMS
   scripts/human_detection_node.py
-  scripts/human_poses_node.py
-  scripts/search_pose_srv_server.py
+  scripts/search_and_rescue_action_server.py
   scripts/transbot_driver.py
   DESTINATION lib/${PROJECT_NAME}
 )

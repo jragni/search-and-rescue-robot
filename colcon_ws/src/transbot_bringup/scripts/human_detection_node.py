@@ -98,17 +98,15 @@ class HumanDetectionNode(Node):
             x_center = math.floor((x1 + x2) / 2)
             y_center = math.floor((y1 + y2) / 2)
             distance = depth_image[y_center][x_center] / 1000
-
             
             # Get ray vector for centroid coordinate
             ray = self.pinhole_model.projectPixelTo3dRay((x_center, y_center))
-            rx, ry, rz = ray
+            _, _, rz = ray
 
             if rz <= 0 or distance <= 0:
                 continue
             
             scaling_factor = distance / rz
-
             point_in_camera_frame = np.array(ray) * scaling_factor
             x, y, z = point_in_camera_frame
 
@@ -164,15 +162,8 @@ class HumanDetectionNode(Node):
                 cv2.LINE_AA
             )
 
-
-        # TODO add a pub that gets the pose and publishes it to the human_pose_node
-        #      the pose node will check if
-        #       1. the pose is already close (within a tolerance) of another 
-        # .     2. if it is not it will call the human pose service to add a pose
-        #       
-
+        # sends annotated image message for visualization
         annotated_message = self.cv_bridge.cv2_to_imgmsg(img, "bgr8", Header())
-
         annotated_message.header.stamp = self.get_clock().now().to_msg()
         annotated_message.header.frame_id = "camera_link"
 

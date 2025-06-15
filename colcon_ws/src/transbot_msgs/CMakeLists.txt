@@ -24,7 +24,6 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/PointArray.msg"
   "msg/Position.msg"
   "msg/PWMServo.msg"
-  "msg/SearchPoseArray.msg"
   # srv
   "srv/Move.srv"
   "srv/Buzzer.srv"

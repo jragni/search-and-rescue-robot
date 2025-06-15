@@ -1,0 +1,8 @@
+# Goal
+geometry_msgs/PoseStamped[] search_poses
+---
+#Result
+bool success
+---
+# Feedback
+string current_task
