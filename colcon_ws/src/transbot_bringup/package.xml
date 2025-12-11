@@ -20,6 +20,7 @@
   <depend>std_msgs</depend>
   <depend>tf2</depend>
   <depend>robot_localization</depend>
+  <depend>vision_msgs</depend>
 
   <build_depend>tf2_geometry_msgs</build_depend>
 

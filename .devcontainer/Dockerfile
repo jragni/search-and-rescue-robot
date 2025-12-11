@@ -74,6 +74,7 @@ ros-$ROS_DISTRO-robot-localization \
 ros-$ROS_DISTRO-nav2-bringup \
 ros-$ROS_DISTRO-twist-mux \
 ros-$ROS_DISTRO-xacro \
+ros-$ROS_DISTRO-vision-msgs \
 ros-$ROS_DISTRO-turtlebot3* \
 ros-$ROS_DISTRO-rtabmap-ros -y
 
