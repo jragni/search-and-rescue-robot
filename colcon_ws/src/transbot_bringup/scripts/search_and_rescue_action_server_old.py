@@ -73,7 +73,7 @@ class SearchAndRescueActionServer(Node):
             
             hx, hy, *_ = human_pose_tuple
             is_within_safe_zone = abs(hx) <= self.safezone_radius and abs(hy) <= self.safezone_radius
-            is_not_searching = self.current_task != [MissionTask.SEARCHING]
+            is_not_searching = self.current_task != MissionTask.SEARCHING
             is_pose_included = human_pose_tuple in self.human_poses
             is_pose_visited = human_pose_tuple in self.visited_human_poses
             is_pose_within_tolerance = is_within_tolerance(
