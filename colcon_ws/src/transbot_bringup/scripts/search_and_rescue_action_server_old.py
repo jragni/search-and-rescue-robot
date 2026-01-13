@@ -30,8 +30,8 @@ class SearchAndRescueActionServer(Node):
         self.safezone_radius = 1.0
         self.current_task = MissionTask.NONE
 
-        self.human_poses = {} # Set of human poses in tuple form
-        self.visited_human_poses = {}
+        self.human_poses = set()  # Set of human poses in tuple form
+        self.visited_human_poses = set()
         self.search_poses = []  # list of PoseStamped
         self.visited_poses = {}
 
