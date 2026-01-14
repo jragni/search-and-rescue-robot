@@ -116,67 +116,80 @@ class SearchAndRescueActionServer(Node):
 
 
     def execute_callback(self, goal_handle):
-        mission_result = SearchAndRescue.Result()
-        mission_feedback_msg = SearchAndRescue.Feedback()
-        self.search_poses = [*goal_handle.request.search_poses]
+        result = SearchAndRescue.Result()
+        feedback = SearchAndRescue.Feedback()
+        self.search_poses = list(goal_handle.request.search_poses)
 
-        if not self.search_poses:
-            mission_result.success = False
-            self.get_logger().info('Mission Failed! No search poses given')
-            return mission_result
-        
+        if not self._validate_goal(goal_handle):
+            result.success = False
+            return result
+
         self.current_task = MissionTask.SEARCHING
-        mission_feedback_msg.current_task = self.current_task
-        goal_handle.publish_feedback(mission_feedback_msg)
+        feedback.current_task = self.current_task
+        goal_handle.publish_feedback(feedback)
 
         while self.search_poses:
             current_search_pose = self.search_poses.pop()
             self.nav_.goToPose(current_search_pose)
 
-            while not self.nav_.isTaskComplete() and self.current_task == MissionTask.SEARCHING:
-                if len(self.human_poses):
-                    self.nav_.cancelTask()
-                    self.current_task = MissionTask.APPROACHING_VICTIM
-                    mission_feedback_msg.current_task = self.current_task
-                    goal_handle.publish_feedback(mission_feedback_msg)
-                    # add the current_search pose back since it was interreupted for a rescue
-                    self.search_poses.append(current_search_pose)
-            
-            while self.current_task == MissionTask.APPROACHING_VICTIM:
-                victim_pose_tuple = self.human_poses.pop()
-                robot_transform = self.tf_buffer.lookup_transform(
-                    'map',
-                    'base_footprint',
-                    self.get_clock().now()
-                )
+            self._handle_searching_state(goal_handle, feedback, current_search_pose)
+            self._handle_approaching_state(goal_handle, feedback)
+            self._handle_rescuing_state(goal_handle, feedback)
+            self._handle_returning_state(goal_handle, feedback)
 
-                approach_pose = get_approach_pose(victim_pose_tuple, robot_transform)
-                self.nav_.goToPose(approach_pose)
-                while not self.nav_.isTaskComplete():
-                    self.get_logger().info('approaching...', once=True)
+    def _validate_goal(self, goal_handle):
+        if not self.search_poses:
+            self.get_logger().info('Mission Failed! No search poses given')
+            return False
+        return True
 
-                self.current_task = MissionTask.RESCUING
-                mission_feedback_msg.current_task = self.current_task
-                goal_handle.publish_feedback(mission_feedback_msg)
-            
-            while self.current_task == MissionTask.RESCUING:
-                # TODO implement this
-                # will need to center/align with human detected in front of it
-                # grasp victim may create a nested action?
-                self.current_task = MissionTask.RETURNING_TO_BASE
-                mission_feedback_msg.current_task = self.current_task
-                goal_handle.publish_feedback(mission_feedback_msg)
+    def _handle_searching_state(self, goal_handle, feedback, current_search_pose):
+        while not self.nav_.isTaskComplete() and self.current_task == MissionTask.SEARCHING:
+            if len(self.human_poses):
+                self.nav_.cancelTask()
+                self.current_task = MissionTask.APPROACHING_VICTIM
+                feedback.current_task = self.current_task
+                goal_handle.publish_feedback(feedback)
+                # add the current_search pose back since it was interrupted for a rescue
+                self.search_poses.append(current_search_pose)
 
-            
-            while self.current_task == MissionTask.RETURNING_TO_BASE:
-                home_pose = PoseStamped()
-                self.nav_.goToPose(home_pose)
+    def _handle_approaching_state(self, goal_handle, feedback):
+        while self.current_task == MissionTask.APPROACHING_VICTIM:
+            victim_pose_tuple = self.human_poses.pop()
+            robot_transform = self.tf_buffer.lookup_transform(
+                'map',
+                'base_footprint',
+                self.get_clock().now()
+            )
 
-                while not self.nav_.isTaskComplete():
-                    self.get_logger().info('Returning to base...', once=True)
+            approach_pose = get_approach_pose(victim_pose_tuple, robot_transform)
+            self.nav_.goToPose(approach_pose)
+            while not self.nav_.isTaskComplete():
+                self.get_logger().info('approaching...', once=True)
 
-                # TODO add release here
-                self.get_logger().info('Releasing victim')
+            self.current_task = MissionTask.RESCUING
+            feedback.current_task = self.current_task
+            goal_handle.publish_feedback(feedback)
+
+    def _handle_rescuing_state(self, goal_handle, feedback):
+        while self.current_task == MissionTask.RESCUING:
+            # TODO implement this
+            # will need to center/align with human detected in front of it
+            # grasp victim may create a nested action?
+            self.current_task = MissionTask.RETURNING_TO_BASE
+            feedback.current_task = self.current_task
+            goal_handle.publish_feedback(feedback)
+
+    def _handle_returning_state(self, goal_handle, feedback):
+        while self.current_task == MissionTask.RETURNING_TO_BASE:
+            home_pose = PoseStamped()
+            self.nav_.goToPose(home_pose)
+
+            while not self.nav_.isTaskComplete():
+                self.get_logger().info('Returning to base...', once=True)
+
+            # TODO add release here
+            self.get_logger().info('Releasing victim')
 
 
 def main(args=None):
