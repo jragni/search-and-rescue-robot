@@ -3,14 +3,15 @@
 from math import atan2, cos, sin, pi
 import numpy as np
 import math
+from typing import List, Union
 
 from geometry_msgs.msg import PoseStamped
 
 
 def is_arm_within_limits(
-    angles: list[float | int],
-    x_min: float | int,
-    y_min: float | int,
+    angles: List[Union[float, int]],
+    x_min: Union[float, int],
+    y_min: Union[float, int],
 ) -> bool:
     """Checks if the arm is within limits
 
