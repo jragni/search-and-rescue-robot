@@ -30,12 +30,22 @@ from transbot_msgs.action import SearchAndRescue
 
 
 class SearchAndRescueActionServer(Node):
-    '''Search and Rescue Action Server.
+    '''ROS2 action server for autonomous search and rescue missions.
 
-    This node will receive search poses
+    Implements a state machine that:
+    1. Navigates to search waypoints looking for humans
+    2. Approaches detected humans outside safe zone
+    3. Rescues victims (grasp with arm - TODO)
+    4. Returns victims to base
+
+    Subscribes:
+        /human_detection/pose (PoseStamped): Detected human locations
+
+    Actions:
+        search_and_rescue_server (SearchAndRescue): Mission control
     '''
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__('search_and_rescue_action_server')
 
         self.human_location_distance_tolerance = 0.15
@@ -76,8 +86,18 @@ class SearchAndRescueActionServer(Node):
         self.get_logger().info('Search and Rescue Action server ready!')
 
 
-    def human_pose_callback(self, msg):
-        '''Handles human detection.'''
+    def human_pose_callback(self, msg: PoseStamped) -> None:
+        '''Process detected human pose and add to tracking set if valid.
+
+        Filters out poses that:
+        - Arrive when not in SEARCHING state
+        - Are within the safe zone (home area)
+        - Are already tracked or visited
+        - Are within tolerance of existing poses (duplicate filtering)
+
+        Args:
+            msg: PoseStamped from human detection in camera frame
+        '''
         try:
             # Transform the pose from camera_link to map frame
             transformed_pose = self.tf_buffer.transform(msg, 'map')
@@ -115,7 +135,18 @@ class SearchAndRescueActionServer(Node):
             self.get_logger().warn(f'Could not transform pose: {ex}')
 
 
-    def execute_callback(self, goal_handle):
+    def execute_callback(self, goal_handle) -> SearchAndRescue.Result:
+        '''Execute search and rescue mission via state machine.
+
+        State flow: SEARCHING -> APPROACHING_VICTIM -> RESCUING -> RETURNING_TO_BASE
+        Repeats until all search poses visited and no humans remain.
+
+        Args:
+            goal_handle: Action goal with search_poses list
+
+        Returns:
+            SearchAndRescue.Result with success status
+        '''
         result = SearchAndRescue.Result()
         feedback = SearchAndRescue.Feedback()
         self.search_poses = list(goal_handle.request.search_poses)
@@ -137,13 +168,31 @@ class SearchAndRescueActionServer(Node):
             self._handle_rescuing_state(goal_handle, feedback)
             self._handle_returning_state(goal_handle, feedback)
 
-    def _validate_goal(self, goal_handle):
+    def _validate_goal(self, goal_handle) -> bool:
+        '''Validate that the goal contains search poses.
+
+        Args:
+            goal_handle: Action goal to validate
+
+        Returns:
+            True if valid (has search poses), False otherwise
+        '''
         if not self.search_poses:
             self.get_logger().info('Mission Failed! No search poses given')
             return False
         return True
 
-    def _handle_searching_state(self, goal_handle, feedback, current_search_pose):
+    def _handle_searching_state(self, goal_handle, feedback, current_search_pose: PoseStamped) -> None:
+        '''Navigate to search pose while monitoring for human detections.
+
+        If human detected, cancels navigation, switches to APPROACHING_VICTIM,
+        and re-queues the interrupted search pose for later.
+
+        Args:
+            goal_handle: Action goal for publishing feedback
+            feedback: Feedback message to update and publish
+            current_search_pose: The waypoint being navigated to
+        '''
         while not self.nav_.isTaskComplete() and self.current_task == MissionTask.SEARCHING:
             if len(self.human_poses):
                 self.nav_.cancelTask()
@@ -153,7 +202,16 @@ class SearchAndRescueActionServer(Node):
                 # add the current_search pose back since it was interrupted for a rescue
                 self.search_poses.append(current_search_pose)
 
-    def _handle_approaching_state(self, goal_handle, feedback):
+    def _handle_approaching_state(self, goal_handle, feedback) -> None:
+        '''Navigate to approach pose near detected victim.
+
+        Calculates approach pose 0.5m from victim facing them,
+        navigates there, then transitions to RESCUING state.
+
+        Args:
+            goal_handle: Action goal for publishing feedback
+            feedback: Feedback message to update and publish
+        '''
         while self.current_task == MissionTask.APPROACHING_VICTIM:
             victim_pose_tuple = self.human_poses.pop()
             robot_transform = self.tf_buffer.lookup_transform(
@@ -171,16 +229,33 @@ class SearchAndRescueActionServer(Node):
             feedback.current_task = self.current_task
             goal_handle.publish_feedback(feedback)
 
-    def _handle_rescuing_state(self, goal_handle, feedback):
+    def _handle_rescuing_state(self, goal_handle, feedback) -> None:
+        '''Execute rescue of victim (placeholder).
+
+        TODO: Implement centering/alignment with victim and arm grasp.
+        Currently just transitions to RETURNING_TO_BASE.
+
+        Args:
+            goal_handle: Action goal for publishing feedback
+            feedback: Feedback message to update and publish
+        '''
         while self.current_task == MissionTask.RESCUING:
-            # TODO implement this
-            # will need to center/align with human detected in front of it
+            # TODO implement centering/alignment with human detected in front
             # grasp victim may create a nested action?
             self.current_task = MissionTask.RETURNING_TO_BASE
             feedback.current_task = self.current_task
             goal_handle.publish_feedback(feedback)
 
-    def _handle_returning_state(self, goal_handle, feedback):
+    def _handle_returning_state(self, goal_handle, feedback) -> None:
+        '''Navigate back to base and release victim.
+
+        TODO: Implement victim release via arm control.
+        Currently just navigates to origin and logs release.
+
+        Args:
+            goal_handle: Action goal for publishing feedback
+            feedback: Feedback message to update and publish
+        '''
         while self.current_task == MissionTask.RETURNING_TO_BASE:
             home_pose = PoseStamped()
             self.nav_.goToPose(home_pose)
