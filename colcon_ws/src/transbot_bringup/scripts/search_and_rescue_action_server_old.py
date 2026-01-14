@@ -1,27 +1,39 @@
 #!/usr/bin/env python3
 
+# Standard library
 import math
+
+# ROS2 core
 import rclpy
-from rclpy.node import Node
 from rclpy.action import ActionServer
 from rclpy.callback_groups import MutuallyExclusiveCallbackGroup
 from rclpy.executors import MultiThreadedExecutor
+from rclpy.node import Node
+
+# ROS2 navigation
 from nav2_simple_commander.robot_navigator import BasicNavigator
+
+# TF2
 from tf2_ros import TransformException
 from tf2_ros.buffer import Buffer
 from tf2_ros.transform_listener import TransformListener
 
+# Messages
 from geometry_msgs.msg import PoseStamped
-from transbot_bringup.helpers import get_approach_pose, is_within_tolerance, pose_to_tuple
+
+# Local
+from transbot_bringup.helpers import get_approach_pose
+from transbot_bringup.helpers import is_within_tolerance
+from transbot_bringup.helpers import pose_to_tuple
 from transbot_bringup.tasks import MissionTask
 from transbot_msgs.action import SearchAndRescue
 
 
 class SearchAndRescueActionServer(Node):
-    """Search and Rescue Action Server.
-    
+    '''Search and Rescue Action Server.
+
     This node will receive search poses
-    """
+    '''
 
     def __init__(self):
         super().__init__('search_and_rescue_action_server')
@@ -51,7 +63,7 @@ class SearchAndRescueActionServer(Node):
 
         self.human_poses_sub_ = self.create_subscription(
             PoseStamped,
-            "/human_detection/pose",
+            '/human_detection/pose',
             self.human_pose_callback,
             10,
             callback_group=self.callback_group
@@ -65,10 +77,10 @@ class SearchAndRescueActionServer(Node):
 
 
     def human_pose_callback(self, msg):
-        """Handles human detection."""
+        '''Handles human detection.'''
         try:
             # Transform the pose from camera_link to map frame
-            transformed_pose = self.tf_buffer.transform(msg, "map")
+            transformed_pose = self.tf_buffer.transform(msg, 'map')
             human_pose_tuple = pose_to_tuple(transformed_pose)
             
             hx, hy, *_ = human_pose_tuple
@@ -110,7 +122,7 @@ class SearchAndRescueActionServer(Node):
 
         if not self.search_poses:
             mission_result.success = False
-            self.get_logger().info("Mission Failed! No search poses given")
+            self.get_logger().info('Mission Failed! No search poses given')
             return mission_result
         
         self.current_task = MissionTask.SEARCHING
@@ -141,7 +153,7 @@ class SearchAndRescueActionServer(Node):
                 approach_pose = get_approach_pose(victim_pose_tuple, robot_transform)
                 self.nav_.goToPose(approach_pose)
                 while not self.nav_.isTaskComplete():
-                    self.get_logger.info("approaching...", once=True)
+                    self.get_logger().info('approaching...', once=True)
 
                 self.current_task = MissionTask.RESCUING
                 mission_feedback_msg.current_task = self.current_task
@@ -151,7 +163,7 @@ class SearchAndRescueActionServer(Node):
                 # TODO implement this
                 # will need to center/align with human detected in front of it
                 # grasp victim may create a nested action?
-                self. current_task = MissionTask.RETURNING_TO_BASE
+                self.current_task = MissionTask.RETURNING_TO_BASE
                 mission_feedback_msg.current_task = self.current_task
                 goal_handle.publish_feedback(mission_feedback_msg)
 
@@ -161,10 +173,10 @@ class SearchAndRescueActionServer(Node):
                 self.nav_.goToPose(home_pose)
 
                 while not self.nav_.isTaskComplete():
-                    self.get_logger.info("Returning to base...", once=True)
+                    self.get_logger().info('Returning to base...', once=True)
 
                 # TODO add release here
-                self.get_logger.info("Releasing victim")
+                self.get_logger().info('Releasing victim')
 
 
 def main(args=None):
