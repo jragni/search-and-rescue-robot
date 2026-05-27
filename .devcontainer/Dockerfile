@@ -98,6 +98,11 @@ RUN git clone https://github.com/Slamtec/sllidar_ros2.git
 RUN git clone https://github.com/orbbec/ros2_astra_camera.git
 RUN git clone https://github.com/Adlink-ROS/rf2o_laser_odometry.git
 RUN git clone https://github.com/introlab/find-object.git src/find_object_2d
+RUN git clone https://github.com/jragni/ros-webrtc.git ros_webrtc
+
+# WebRTC signaling deps (aiortc-based bridge for camera streaming to dashboard)
+# opencv already provided by ultralytics + cv_bridge — don't duplicate
+RUN pip3 install aiortc aiohttp
 
 # copy over rules
 #RUN sudo cp OrbbecSDK_ROS2/orbbec_camera/scripts/99-obsensor-libusb.rules \
