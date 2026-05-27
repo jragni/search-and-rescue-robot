@@ -76,7 +76,10 @@ ros-$ROS_DISTRO-twist-mux \
 ros-$ROS_DISTRO-xacro \
 ros-$ROS_DISTRO-vision-msgs \
 ros-$ROS_DISTRO-turtlebot3* \
-ros-$ROS_DISTRO-rtabmap-ros -y
+ros-$ROS_DISTRO-rtabmap-ros \
+ros-$ROS_DISTRO-rosbridge-server \
+ros-$ROS_DISTRO-rosbridge-suite \
+ros-$ROS_DISTRO-rosapi -y
 
 # Rosdep update
 RUN rosdep update

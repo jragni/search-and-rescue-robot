@@ -179,7 +179,7 @@ def generate_launch_description():
         remappings=[("odometry/filtered", "odom")],
     )
 
-    # Data transport 
+    # Data transport
     transport_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(
@@ -187,6 +187,26 @@ def generate_launch_description():
                 'launch/transport_onboard.launch.py'
             ),
         )
+    )
+
+    # rosbridge websocket — exposes topics/services to robot-telemetry-dashboard
+    rosbridge_node = Node(
+        package='rosbridge_server',
+        executable='rosbridge_websocket',
+        name='rosbridge_websocket',
+        output='screen',
+        parameters=[{
+            'port': 9090,
+            'address': '0.0.0.0',
+            'call_services_in_new_thread': True,
+        }],
+    )
+
+    rosapi_node = Node(
+        package='rosapi',
+        executable='rosapi_node',
+        name='rosapi',
+        output='screen',
     )
 
     return LaunchDescription([
@@ -203,4 +223,6 @@ def generate_launch_description():
         rgbd_camera_static_transform_publisher_node,
         astra_launch,
         transport_launch,
+        rosbridge_node,
+        rosapi_node,
     ])
