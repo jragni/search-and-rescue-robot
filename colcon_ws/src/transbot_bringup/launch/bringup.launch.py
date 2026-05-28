@@ -152,6 +152,10 @@ def generate_launch_description():
         launch_arguments=[
           ('point_cloud_qos', 'SENSOR_DATA'),
           ('depth_registration', 'true'),
+          # color published BEST_EFFORT to match ros_webrtc subscriber QoS
+          # (webrtc_server subscribes BEST_EFFORT; RELIABLE pub blocks delivery under rmw_zenoh)
+          ('color_qos', 'SENSOR_DATA'),
+          ('color_camera_info_qos', 'SENSOR_DATA'),
         ]
     )
 
