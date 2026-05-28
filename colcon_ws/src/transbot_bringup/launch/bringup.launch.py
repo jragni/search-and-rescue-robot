@@ -209,6 +209,19 @@ def generate_launch_description():
         output='screen',
     )
 
+    # WebRTC camera bridge — launched here so it inherits the same RMW
+    # (rmw_zenoh_cpp) as the camera. Running it in a separate shell risks
+    # falling back to Fast DDS and silently not matching the Zenoh publisher.
+    webrtc_node = Node(
+        package='ros_webrtc',
+        executable='webrtc_server',
+        name='webrtc_server',
+        output='screen',
+        parameters=[{
+            'image_topic': '/camera/color/image_raw',
+        }],
+    )
+
     return LaunchDescription([
         declare_use_sim_time,
         bringup_node,
@@ -225,4 +238,5 @@ def generate_launch_description():
         transport_launch,
         rosbridge_node,
         rosapi_node,
+        webrtc_node,
     ])
